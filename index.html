@@ -1,0 +1,2202 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SỔ CHỦ NHIỆM ĐIỆN TỬ - LỚP 11C7 (THPT TRIỆU SƠN 5)</title>
+  <style>
+    :root {
+      --primary: #1a5276;
+      --secondary: #2980b9;
+      --accent: #c0392b;
+      --success: #27ae60;
+      --warning: #f39c12;
+      --bg: #f4f6f9;
+      --card: #ffffff;
+      --border: #dcdde1;
+      --text: #2c3e50;
+    }
+    * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; }
+    body { background-color: var(--bg); color: var(--text); padding: 15px; }
+    
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 16px 22px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    header h1 { font-size: 1.35rem; font-weight: 700; }
+    header .info { font-size: 0.9rem; opacity: 0.95; margin-top: 3px; }
+    
+    .role-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .role-badge.teacher { background: #e8f8f5; color: #117a65; border: 1px solid #a3e4d7; }
+    .role-badge.student { background: #fef9e7; color: #b7950b; border: 1px solid #f9e79f; }
+
+    .nav-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 15px;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 8px;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      background: #e4e7eb;
+      border: none;
+      padding: 9px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.86rem;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      color: #4b6584;
+    }
+    .tab-btn:hover { background: #dcdde1; }
+    .tab-btn.active { background: var(--primary); color: white; }
+
+    .tab-content { display: none; background: var(--card); padding: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+    .tab-content.active { display: block; }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.86rem; }
+    th, td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; }
+    th { background-color: #f1f4f8; color: var(--primary); font-weight: 600; }
+    tr:nth-child(even) { background-color: #fafbfc; }
+    tr:hover { background-color: #f0f7ff; }
+
+    .badge { display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
+    .badge-to1 { background: #d4edda; color: #155724; }
+    .badge-to2 { background: #d1ecf1; color: #0c5460; }
+    .badge-to3 { background: #fff3cd; color: #856404; }
+    .badge-to4 { background: #f8d7da; color: #721c24; }
+
+    .rank-xs { background: #27ae60; color: white; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 0.78rem; display: inline-block; }
+    .rank-tot { background: #2980b9; color: white; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 0.78rem; display: inline-block; }
+    .rank-kha { background: #f39c12; color: white; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 0.78rem; display: inline-block; }
+    .rank-tb { background: #e67e22; color: white; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 0.78rem; display: inline-block; }
+    .rank-yeu { background: #c0392b; color: white; padding: 3px 8px; border-radius: 4px; font-weight: bold; font-size: 0.78rem; display: inline-block; }
+
+    .seat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px; }
+    .seat-col { background: #f8f9fa; border: 1px solid var(--border); padding: 14px; border-radius: 8px; }
+    .table-card { background: white; border: 1px solid #ced6e0; border-radius: 6px; padding: 10px; margin-bottom: 12px; }
+    .table-title { font-weight: bold; color: var(--primary); font-size: 0.85rem; margin-bottom: 6px; border-bottom: 1px dashed #dcdde1; padding-bottom: 4px; }
+    .student-tag { display: inline-block; background: #eef2f7; padding: 5px 9px; margin: 3px 2px; border-radius: 4px; font-size: 0.85rem; border: 1px solid #e2e8f0; }
+
+    input, select, textarea { width: 100%; padding: 7px 10px; border: 1px solid var(--border); border-radius: 4px; font-size: 0.86rem; }
+    select optgroup { font-weight: bold; color: var(--primary); background: #f1f4f8; }
+    select option { font-weight: normal; color: #2c3e50; background: #ffffff; padding: 4px 6px; }
+    textarea { resize: vertical; min-height: 80px; }
+    
+    button.btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.86rem;
+      transition: background 0.2s;
+    }
+    button.btn:hover { background: var(--secondary); }
+    .btn-outline { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.7); }
+    .btn-outline:hover { background: rgba(255,255,255,0.15); border-color: white; }
+    .btn-danger { background: var(--accent) !important; }
+    .btn-success { background: var(--success) !important; }
+
+    .flex-row { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; flex-wrap: wrap; }
+    
+    .teacher-only { display: none; }
+    body.is-teacher .teacher-only { display: block; }
+    body.is-teacher span.teacher-only,
+    body.is-teacher button.teacher-only,
+    body.is-teacher td.teacher-only,
+    body.is-teacher th.teacher-only { display: table-cell; }
+
+    .student-notice {
+      background: #fff8e1;
+      border-left: 4px solid #ffb300;
+      padding: 10px 14px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      margin-bottom: 15px;
+      color: #6d4c41;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stat-dashboard { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 15px; }
+    .stat-box { background: #f8fbfd; border: 1px solid #cfe2f3; border-radius: 8px; padding: 14px; text-align: center; }
+    .stat-box h4 { font-size: 0.85rem; color: #555; text-transform: uppercase; margin-bottom: 4px; }
+    .stat-box .score { font-size: 1.6rem; font-weight: 700; color: var(--primary); }
+    .stat-box .rank { font-size: 0.85rem; font-weight: 600; margin-top: 4px; }
+
+    .filter-bar {
+      background: #edf2f7;
+      padding: 12px 16px;
+      border-radius: 6px;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+    .filter-bar label { font-weight: bold; font-size: 0.88rem; color: var(--primary); }
+    .filter-bar select { max-width: 200px; background: white; }
+
+    .btn-edit-row {
+      background: #2980b9;
+      color: white;
+      border: none;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-edit-row:hover { background: #1a5276; }
+    .btn-del-row {
+      background: #c0392b;
+      color: white;
+      border: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-left: 4px;
+    }
+    .btn-del-row:hover { background: #962d22; }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .nav-tabs, button, .no-print, .student-notice, .filter-bar, .action-col { display: none !important; }
+      .tab-content { display: block !important; box-shadow: none; padding: 0; margin-bottom: 25px; }
+      header { background: none; color: black; border-bottom: 2px solid black; padding: 0 0 10px 0; }
+    }
+  </style>
+</head>
+<body class="is-student">
+
+  <header>
+    <div>
+      <h1>SỔ CHỦ NHIỆM ĐIỆN TỬ - LỚP 11C7</h1>
+      <div class="info">Trường THPT Triệu Sơn 5 | GVCN: Thầy Trần Đình Thanh | Sĩ số: 44 học sinh</div>
+    </div>
+    <div style="display: flex; gap: 8px; align-items: center;" class="no-print">
+      <span id="roleIndicator" class="role-badge student">🔒 Chế độ: Học sinh (Chỉ xem)</span>
+      <button id="authBtn" class="btn btn-outline" onclick="toggleAuth()">🔑 Mở khóa GVCN</button>
+      <button id="changePinBtn" class="btn btn-outline teacher-only" onclick="changeTeacherPIN()" style="border-color: #f1c40f; color: #f1c40f;">🔐 Đổi mã PIN</button>
+      <button class="btn" onclick="window.print()">🖨️ In / PDF</button>
+    </div>
+  </header>
+
+  <div id="studentNoticeBar" class="student-notice no-print">
+    <span>ℹ️ <strong>Chế độ Học sinh (Chỉ đọc):</strong> Điểm thi đua và xếp loại được đồng bộ tự động theo tuần, tháng và cả năm theo tiêu chuẩn Đoàn trường & Thông tư 22/BGDĐT.</span>
+    <span style="font-size: 0.8rem; color: #888;">Năm học 2026 - 2027</span>
+  </div>
+
+  <div class="nav-tabs no-print">
+    <button class="tab-btn active" onclick="switchTab('tab-tonghop')">📊 Tổng Hợp Tự Động (Tuần/Tháng/Năm)</button>
+    <button class="tab-btn" onclick="switchTab('tab-nenep')">✏️ Ghi Nhận Vi Phạm & Chấm Điểm</button>
+    <button class="tab-btn" onclick="switchTab('tab-hs')">1. Danh Sách Học Sinh (44 HS)</button>
+    <button class="tab-btn" onclick="switchTab('tab-sodo')">2. Sơ Đồ Lớp Học (4 Tổ)</button>
+    <button class="tab-btn" onclick="switchTab('tab-tieuchi')">3. Tiêu Chí Đoàn Trường (Chỉnh sửa trực tiếp)</button>
+    <button class="tab-btn" onclick="switchTab('tab-sinhoat')">4. Soạn Sinh Hoạt & Nhắn Tin PH</button>
+    <button class="tab-btn" onclick="switchTab('tab-danhgia')">5. Nhận Xét Rèn Luyện (TT22)</button>
+  </div>
+
+  <!-- TAB TỔNG HỢP TỰ ĐỘNG TUẦN / THÁNG / CẢ NĂM -->
+  <div id="tab-tonghop" class="tab-content active">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+      <div>
+        <h2 style="font-size: 1.25rem; color: var(--primary);">HỆ THỐNG TỔNG HỢP ĐÁNH GIÁ & XẾP LOẠI TỰ ĐỘNG</h2>
+        <p style="font-size: 0.85rem; color: #666;">Tự động tính lũy tiến điểm thi đua, xếp thứ hạng 4 Tổ và phân loại rèn luyện chuẩn Thông tư 22.</p>
+      </div>
+      <div class="teacher-only no-print">
+        <button class="btn btn-success" onclick="exportRankingToExcel()">📥 Xuất bảng xếp loại</button>
+      </div>
+    </div>
+
+    <!-- BỘ LỌC THỜI GIAN -->
+    <div class="filter-bar no-print">
+      <div>
+        <label>Phạm vi đánh giá:</label>
+        <select id="timeScope" onchange="onTimeScopeChange()">
+          <option value="week">Theo Tuần</option>
+          <option value="month">Theo Tháng</option>
+          <option value="semester1">Học Kỳ I</option>
+          <option value="semester2">Học Kỳ II</option>
+          <option value="year">Cả Năm Học</option>
+        </select>
+      </div>
+      <div id="weekSelectWrapper">
+        <label>Chọn tuần:</label>
+        <select id="selectedWeek" onchange="renderRecordsAndRanking()">
+          <option value="1">Tuần 1</option>
+          <option value="2">Tuần 2</option>
+          <option value="3">Tuần 3</option>
+          <option value="4">Tuần 4</option>
+          <option value="5">Tuần 5</option>
+          <option value="6">Tuần 6</option>
+          <option value="7" selected>Tuần 7 (Hiện tại)</option>
+          <option value="8">Tuần 8</option>
+          <option value="9">Tuần 9</option>
+          <option value="10">Tuần 10</option>
+        </select>
+      </div>
+      <div id="monthSelectWrapper" style="display: none;">
+        <label>Chọn tháng:</label>
+        <select id="selectedMonth" onchange="renderRecordsAndRanking()">
+          <option value="9">Tháng 9/2026</option>
+          <option value="10" selected>Tháng 10/2026</option>
+          <option value="11">Tháng 11/2026</option>
+          <option value="12">Tháng 12/2026</option>
+          <option value="1">Tháng 1/2027</option>
+          <option value="2">Tháng 2/2027</option>
+          <option value="3">Tháng 3/2027</option>
+          <option value="4">Tháng 4/2027</option>
+          <option value="5">Tháng 5/2027</option>
+        </select>
+      </div>
+      <span style="font-size: 0.82rem; color: #555; margin-left: auto;">⚡ Tự động tính cấp số cộng khi tái phạm</span>
+    </div>
+
+    <!-- 4 TỔ THI ĐUA -->
+    <div class="stat-dashboard">
+      <div class="stat-box" id="boxTo1">
+        <h4>Tổ 1 (11 HS)</h4>
+        <div class="score" id="scoreTo1">100</div>
+        <div class="rank" id="rankTo1"><span class="rank-xs">Xuất sắc</span></div>
+        <small style="color: #666;" id="errTo1">0 lỗi vi phạm</small>
+      </div>
+      <div class="stat-box" id="boxTo2">
+        <h4>Tổ 2 (11 HS)</h4>
+        <div class="score" id="scoreTo2">100</div>
+        <div class="rank" id="rankTo2"><span class="rank-xs">Xuất sắc</span></div>
+        <small style="color: #666;" id="errTo2">0 lỗi vi phạm</small>
+      </div>
+      <div class="stat-box" id="boxTo3">
+        <h4>Tổ 3 (10 HS)</h4>
+        <div class="score" id="scoreTo3">100</div>
+        <div class="rank" id="rankTo3"><span class="rank-xs">Xuất sắc</span></div>
+        <small style="color: #666;" id="errTo3">0 lỗi vi phạm</small>
+      </div>
+      <div class="stat-box" id="boxTo4">
+        <h4>Tổ 4 (12 HS)</h4>
+        <div class="score" id="scoreTo4">100</div>
+        <div class="rank" id="rankTo4"><span class="rank-xs">Xuất sắc</span></div>
+        <small style="color: #666;" id="errTo4">0 lỗi vi phạm</small>
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin: 15px 0 8px 0;">
+      <h3 style="font-size: 1rem; color: var(--primary);">Bảng tổng hợp điểm & Xếp loại cá nhân (44 Học sinh)</h3>
+      <input type="text" id="searchRank" placeholder="🔍 Tìm nhanh học sinh..." onkeyup="filterRank()" style="max-width: 250px; padding: 4px 8px;">
+    </div>
+    <table id="tableRanking">
+      <thead>
+        <tr>
+          <th style="width: 45px;">STT</th>
+          <th style="width: 170px;">Họ và Tên</th>
+          <th style="width: 65px; text-align: center;">Tổ</th>
+          <th style="width: 80px; text-align: center;">Điểm cộng</th>
+          <th style="width: 80px; text-align: center;">Điểm trừ</th>
+          <th style="width: 85px; text-align: center;">Điểm số</th>
+          <th style="width: 110px; text-align: center;">Xếp loại thi đua</th>
+          <th style="width: 110px; text-align: center;">Đánh giá TT22</th>
+          <th>Chi tiết vi phạm / Khen thưởng ghi nhận</th>
+        </tr>
+      </thead>
+      <tbody id="rankingBody"></tbody>
+    </table>
+  </div>
+
+  <!-- TAB 2: GHI NHẬN VI PHẠM & CHẤM ĐIỂM -->
+  <div id="tab-nenep" class="tab-content">
+    <div class="teacher-only" style="background: #eef4f9; padding: 15px; border-radius: 6px; margin-bottom: 15px; border: 1px solid #d4e6f1;">
+      <h3 style="font-size: 0.95rem; margin-bottom: 10px; color: var(--primary);">➕ Nhập vi phạm / Khen thưởng (Phân loại theo tuần & tháng)</h3>
+      <div style="display: grid; grid-template-columns: 2.2fr 3.5fr 1fr 1fr 1fr; gap: 10px;">
+        <div>
+          <label style="font-size: 0.75rem; font-weight: bold; color: var(--primary);">1. Chọn Học sinh (Gõ tìm kiếm nhanh):</label>
+          <div style="position: relative;">
+            <input list="listHS" id="searchHSInput" placeholder="🔍 Gõ tên hoặc STT (vd: Long, Anh, 12...)" oninput="onHSInputChange()" onfocus="this.value=''" style="background: #ffffff; border: 1.5px solid var(--secondary); font-weight: 600;">
+            <datalist id="listHS"></datalist>
+          </div>
+          <input type="hidden" id="recordHS" value="1">
+          <div id="selectedHSLabel" style="font-size: 0.78rem; color: #27ae60; font-weight: bold; margin-top: 3px;">✓ Đang chọn: 1. Lê Thanh An (Tổ 4)</div>
+        </div>
+        <div>
+          <label style="font-size: 0.75rem; font-weight: bold; color: var(--primary);">2. Lỗi / Khen thưởng (Gõ từ khóa tìm kiếm nhanh):</label>
+          <div style="position: relative;">
+            <input list="listTC" id="searchTypeInput" placeholder="🔍 Gõ từ khóa (vd: sơ vin, dép, điện thoại, muộn, mũ, 10đ...)" oninput="onTypeInputChange()" onfocus="this.value=''" style="background: #ffffff; border: 1.5px solid var(--secondary); font-weight: 600;">
+            <datalist id="listTC"></datalist>
+          </div>
+          <input type="hidden" id="recordType" value="I.1">
+          <div id="selectedTypeLabel" style="font-size: 0.78rem; color: #c0392b; font-weight: bold; margin-top: 3px;">✓ Đang chọn: [I.1] Đầu tóc, trang phục (-20đ)</div>
+        </div>
+        <div>
+          <label style="font-size: 0.75rem; font-weight: bold;">3. Thuộc Tuần:</label>
+          <select id="recWeek">
+            <option value="1">Tuần 1</option><option value="2">Tuần 2</option><option value="3">Tuần 3</option>
+            <option value="4">Tuần 4</option><option value="5">Tuần 5</option><option value="6">Tuần 6</option>
+            <option value="7" selected>Tuần 7</option><option value="8">Tuần 8</option><option value="9">Tuần 9</option>
+            <option value="10">Tuần 10</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size: 0.75rem; font-weight: bold;">4. Ngày ghi nhận:</label>
+          <input type="date" id="recordDate">
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+          <button class="btn btn-success" onclick="addRecord()" style="width: 100%;">+ Ghi nhận</button>
+        </div>
+      </div>
+      <div id="pointHint" style="margin-top: 8px; font-size: 0.85rem; color: #c0392b; font-weight: 600;"></div>
+    </div>
+
+    <h3 style="font-size: 0.95rem; color: var(--primary); margin: 15px 0 8px 0;">Sổ nhật ký ghi nhận vi phạm & khen thưởng</h3>
+    <table id="recordTable">
+      <thead>
+        <tr>
+          <th style="width: 75px; text-align: center;">Tuần</th>
+          <th style="width: 95px;">Ngày</th>
+          <th style="width: 170px;">Họ và Tên HS</th>
+          <th style="width: 65px; text-align: center;">Tổ</th>
+          <th>Lỗi vi phạm / Khen thưởng theo tiêu chí Đoàn trường</th>
+          <th style="width: 110px; text-align: center;">Điểm áp dụng</th>
+          <th class="teacher-only no-print" style="width: 70px;">Xóa</th>
+        </tr>
+      </thead>
+      <tbody id="recordBody"></tbody>
+    </table>
+  </div>
+
+  <!-- TAB 3: DANH SÁCH HỌC SINH (44 HS) -->
+  <div id="tab-hs" class="tab-content">
+    <div class="flex-row no-print">
+      <input type="text" id="searchHS" placeholder="🔍 Tìm kiếm học sinh theo tên..." onkeyup="filterHS()" style="max-width: 320px;">
+      <span style="font-size: 0.85rem; color: #666;">Danh bạ 44 học sinh - Lớp 11C7</span>
+    </div>
+    <table id="tableHS">
+      <thead>
+        <tr>
+          <th style="width: 50px;">STT</th>
+          <th>Họ và Tên</th>
+          <th style="width: 90px;">Tổ</th>
+          <th style="width: 150px;">Ban cán sự / Vai trò</th>
+          <th>Ghi chú hoàn cảnh / Sức khỏe / Năng lực</th>
+          <th class="teacher-only no-print" style="width: 80px;">Thao tác</th>
+        </tr>
+      </thead>
+      <tbody id="hsBody"></tbody>
+    </table>
+  </div>
+
+  <!-- TAB 4: SƠ ĐỒ CHỖ NGỒI (ĐIỀU CHỈNH TRỰC TIẾP & HOÁN ĐỔI CHỖ) -->
+  <div id="tab-sodo" class="tab-content">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+      <div>
+        <h2 style="font-size: 1.18rem; color: var(--primary);">SƠ ĐỒ CHỖ NGỒI LỚP 11C7 (CHỈNH SỬA & HOÁN ĐỔI TRỰC TIẾP)</h2>
+        <p style="font-size: 0.85rem; color: #555;">Thầy có thể nhấp chuột vào 2 học sinh để hoán đổi chỗ ngay lập tức, hoặc dùng bảng điều khiển bên dưới để chuyển bàn/đổi chỗ.</p>
+      </div>
+      <div class="no-print" style="display: flex; gap: 8px;">
+        <button class="btn btn-outline" style="color: var(--accent); border-color: var(--accent);" onclick="resetSeatingToDefault()">🔄 Khôi phục sơ đồ gốc (13/10/2026)</button>
+        <button class="btn" onclick="window.print()">🖨️ In Sơ Đồ Lớp</button>
+      </div>
+    </div>
+
+        <!-- KHUNG ĐIỀU KHIỂN DI CHUYỂN CHỖ NGỒI GVCN -->
+    <div class="teacher-only no-print" style="background: #eef4f9; border: 1.5px dashed var(--secondary); padding: 14px 18px; border-radius: 6px; margin-bottom: 15px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <h3 style="font-size: 0.95rem; color: var(--primary);">⚡ Bảng điều khiển Di chuyển & Sắp xếp chỗ ngồi</h3>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn" style="padding: 4px 10px; font-size: 0.8rem; background: var(--secondary);" onclick="switchMoveMode('move')">➡️ Chuyển bàn học</button>
+          <button class="btn" style="padding: 4px 10px; font-size: 0.8rem; background: #27ae60;" onclick="switchMoveMode('swap')">🔄 Hoán đổi 2 học sinh</button>
+        </div>
+      </div>
+
+      <!-- CHẾ ĐỘ 1: CHUYỂN BÀN -->
+      <div id="modeMovePanel" style="display: block;">
+        <div style="display: grid; grid-template-columns: 2fr 2fr 1fr; gap: 12px; align-items: flex-end;">
+          <div>
+            <label style="font-size: 0.75rem; font-weight: bold; color: var(--primary);">1. Chọn Học sinh cần chuyển:</label>
+            <select id="moveStudentSelect"></select>
+          </div>
+          <div>
+            <label style="font-size: 0.75rem; font-weight: bold; color: var(--primary);">2. Chọn Bàn đích muốn chuyển đến:</label>
+            <select id="moveTargetTableSelect"></select>
+          </div>
+          <div>
+            <button class="btn btn-success" style="width: 100%;" onclick="executeMoveToTable()">➡️ Chuyển chỗ</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHẾ ĐỘ 2: HOÁN ĐỔI CHỖ -->
+      <div id="modeSwapPanel" style="display: none;">
+        <div style="display: grid; grid-template-columns: 2fr 2fr 1fr; gap: 12px; align-items: flex-end;">
+          <div>
+            <label style="font-size: 0.75rem; font-weight: bold;">Học sinh 1 (hoặc click trên sơ đồ):</label>
+            <select id="swapHS1" onchange="highlightSelectedSeat()"></select>
+          </div>
+          <div>
+            <label style="font-size: 0.75rem; font-weight: bold;">Học sinh 2 (hoặc click trên sơ đồ):</label>
+            <select id="swapHS2" onchange="highlightSelectedSeat()"></select>
+          </div>
+          <div>
+            <button class="btn btn-success" style="width: 100%;" onclick="executeSwap()">🔄 Đổi chỗ</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="swapHint" style="font-size: 0.82rem; color: #27ae60; font-weight: bold; margin-top: 8px;">
+        💡 <strong>Mẹo thao tác:</strong> Có thể <strong>kéo và thả (Drag & Drop)</strong> tên học sinh từ bàn này sang bàn khác trực tiếp trên sơ đồ bên dưới, hoặc nhấp chọn để chuyển!
+      </div>
+    </div>
+
+    <div style="text-align: center; font-weight: bold; margin-bottom: 12px; color: var(--primary); font-size: 1.05rem; background: #eaf2f8; padding: 8px; border-radius: 4px; border: 1px solid #cfe2f3;">
+      BỤC GIẢNG / BÀN GIÁO VIÊN CHỦ NHIỆM (THẦY TRẦN ĐÌNH THANH)
+    </div>
+
+    <!-- LƯỚI SƠ ĐỒ CHỖ NGỒI RENDER TỰ ĐỘNG -->
+    <div class="seat-grid" id="seatingGridContainer"></div>
+
+    <div style="display: flex; justify-content: space-between; margin-top: 20px; font-weight: bold; font-size: 0.9rem; padding: 10px; background: #fafbfc; border: 1px solid var(--border); border-radius: 6px;">
+      <span>Giáo viên chủ nhiệm: Thầy Trần Đình Thanh</span>
+      <span>Lớp trưởng: Nguyễn Thành Long (Tổ 2)</span>
+      <span>Sĩ số: 44 học sinh</span>
+    </div>
+  </div>
+
+  <!-- TAB 5: BẢNG TIÊU CHÍ VÀ CHỈNH SỬA TRỰC TIẾP -->
+  <div id="tab-tieuchi" class="tab-content">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+      <div>
+        <h2 style="font-size: 1.18rem; color: var(--primary);">BẢNG TIÊU CHÍ ĐÁNH GIÁ THI ĐUA (CHỈNH SỬA TRỰC TIẾP)</h2>
+        <p style="font-size: 0.85rem; color: #555;">Chuẩn quy định Đoàn trường THPT Triệu Sơn 5. Thầy có thể sửa đổi nội dung, điểm số, thêm mới hoặc xóa trực tiếp trên trang.</p>
+      </div>
+      <div class="no-print" style="display: flex; gap: 8px;">
+        <button class="btn btn-success" onclick="toggleAddTCForm()">➕ Thêm tiêu chí mới</button>
+        <button class="btn btn-outline" style="color: var(--accent); border-color: var(--accent);" onclick="resetTCToDefault()">🔄 Khôi phục tiêu chí gốc</button>
+      </div>
+    </div>
+
+    <!-- FORM THÊM / SỬA TIÊU CHÍ MỚI -->
+    <div id="addTCForm" style="display: none; background: #eef4f9; border: 1.5px dashed var(--secondary); padding: 14px; border-radius: 6px; margin-bottom: 15px;">
+      <h3 style="font-size: 0.95rem; color: var(--primary); margin-bottom: 10px;" id="tcFormTitle">➕ Thêm tiêu chí thi đua mới</h3>
+      <div style="display: grid; grid-template-columns: 1fr 2fr 3fr 1fr 1fr; gap: 8px; margin-bottom: 10px;">
+        <div>
+          <label style="font-size: 0.75rem; font-weight: bold;">Mã tiêu chí:</label>
+          <input type="text" id="newTcId" placeholder="VD: III.29, KT.5...">
+        </div>
+        <div>
+          <label style="font-size: 0.75rem; font-weight: bold;">Nhóm quy định:</label>
+          <select id="newTcCat">
+            <option value="I. QUY ĐỊNH VỀ TRANG PHỤC, TÁC PHONG">I. Trang phục, tác phong</option>
+            <option value="II. QUY ĐỊNH VỀ ĐẠO ĐỨC, LỐI SỐNG, HÀNH VI ỨNG XỬ">II. Đạo đức, ứng xử</option>
+            <option value="III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP" selected>III. Nề nếp, học tập</option>
+            <option value="IV. QUY ĐỊNH VỀ CÔNG CỤ CHÍNH, LAO ĐỘNG">IV. Lao động, vệ sinh</option>
+            <option value="V. BẢO VỆ CỦA CÔNG">V. Bảo vệ của công</option>
+            <option value="VI. KHEN THƯỞNG (+)">VI. Khen thưởng (+)</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size: 0.75rem; font-weight: bold;">Tên nội dung tiêu chí:</label>
+          <input type="text" id="newTcName" placeholder="Mô tả hành vi vi phạm hoặc khen thưởng...">
+        </div>
+        <div>
+          <label style="font-size: 0.75rem; font-weight: bold;">Điểm (số âm = trừ):</label>
+          <input type="number" id="newTcPts" placeholder="-10 hoặc 5" value="-10">
+        </div>
+        <div>
+          <label style="font-size: 0.75rem; font-weight: bold;">Đơn vị tính:</label>
+          <input type="text" id="newTcUnit" placeholder="HS/lần, buổi..." value="HS/lần">
+        </div>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <button class="btn btn-success" onclick="saveNewOrEditTC()">💾 Lưu tiêu chí</button>
+        <button class="btn btn-outline" style="color: #666; border-color: #ccc;" onclick="toggleAddTCForm(false)">Hủy bỏ</button>
+      </div>
+      <input type="hidden" id="editingTcId" value="">
+    </div>
+
+    <!-- TÌM KIẾM TRONG BẢNG TIÊU CHÍ -->
+    <div class="flex-row no-print" style="margin-bottom: 10px;">
+      <input type="text" id="searchTCTable" placeholder="🔍 Gõ tìm nhanh tiêu chí theo tên, mã hoặc nhóm..." onkeyup="filterTCTable()" style="max-width: 380px;">
+      <span style="font-size: 0.85rem; color: #666;" id="tcTotalCount">Tổng cộng: 58 tiêu chí</span>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 70px;">Mã</th>
+          <th style="width: 200px;">Nhóm quy định</th>
+          <th>Nội dung quy định / Tiêu chí đánh giá</th>
+          <th style="width: 120px; text-align: center;">Mức điểm</th>
+          <th class="action-col" style="width: 130px; text-align: center;">Thao tác</th>
+        </tr>
+      </thead>
+      <tbody id="tieuchiBody"></tbody>
+    </table>
+  </div>
+
+  <!-- TAB 6: DỰ THẢO VĂN BẢN (SINH HOẠT & TIN NHẮN PH) -->
+  <div id="tab-sinhoat" class="tab-content">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+      <div>
+        <h3 style="color: var(--primary); margin-bottom: 10px;">📋 Biên bản & Kịch bản Sinh hoạt lớp Tuần</h3>
+        <div class="teacher-only" style="margin-bottom: 10px;">
+          <input type="text" id="shTitle" value="Tổng kết thi đua tuần, chấn chỉnh nề nếp tác phong & Phương pháp học tập" style="margin-bottom: 8px;">
+          <button class="btn" onclick="generateSHKichBan()">Tạo kịch bản tự động</button>
+        </div>
+        <textarea id="shResult" readonly style="height: 340px; background: #fafbfc; line-height: 1.5;"></textarea>
+      </div>
+      <div>
+        <h3 style="color: var(--primary); margin-bottom: 10px;">💬 Soạn tin nhắn Zalo gửi Phụ huynh</h3>
+        <div class="teacher-only" style="margin-bottom: 10px;">
+          <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+            <select id="smsHS"></select>
+            <select id="smsType">
+              <option value="nhac_nho">Nhắc nhở nề nếp / vi phạm trừ điểm</option>
+              <option value="khen_ngoi">Khen ngợi nỗ lực & xếp loại tốt</option>
+              <option value="trao_doi">Hẹn trao đổi phối hợp uốn nắn</option>
+            </select>
+          </div>
+          <button class="btn" onclick="generateSMS()">Tạo nội dung tin nhắn</button>
+        </div>
+        <textarea id="smsResult" readonly style="height: 340px; background: #fafbfc; line-height: 1.5;"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 7: ĐÁNH GIÁ RÈN LUYỆN TT22 (HỌC BẠ) -->
+  <div id="tab-danhgia" class="tab-content">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+      <div>
+        <h3 style="color: var(--primary);">Đánh giá kết quả rèn luyện học sinh (Thông tư 22/BGDĐT)</h3>
+        <p style="font-size: 0.85rem; color: #555;">Tự động tham chiếu từ kết quả điểm thi đua cả năm / học kỳ để đề xuất mức xếp loại.</p>
+      </div>
+      <button class="btn teacher-only" onclick="saveEvaluations()">💾 Lưu nhận xét học bạ</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 50px;">STT</th>
+          <th style="width: 180px;">Họ và Tên</th>
+          <th style="width: 120px;">Mức đánh giá</th>
+          <th>Lời nhận xét của Giáo viên chủ nhiệm</th>
+        </tr>
+      </thead>
+      <tbody id="evalBody"></tbody>
+    </table>
+  </div>
+
+  <script>
+        const DEFAULT_TEACHER_PIN = "11C7";
+    function getTeacherPIN() {
+      return localStorage.getItem('11C7_teacher_pin') || DEFAULT_TEACHER_PIN;
+    }
+
+    function changeTeacherPIN() {
+      const currentPin = getTeacherPIN();
+      const oldPin = prompt("Nhập mã PIN GVCN hiện tại:");
+      if (oldPin === null) return;
+      if (oldPin !== currentPin) {
+        alert("Mã PIN hiện tại không chính xác!");
+        return;
+      }
+      const newPin = prompt("Nhập mã PIN mới (ví dụ: 1234, 11c7...):");
+      if (!newPin || newPin.trim() === "") {
+        alert("Mã PIN mới không được để trống!");
+        return;
+      }
+      const confirmPin = prompt("Nhập lại mã PIN mới để xác nhận:");
+      if (newPin !== confirmPin) {
+        alert("Xác nhận mã PIN không khớp! Vui lòng thao tác lại.");
+        return;
+      }
+      localStorage.setItem('11C7_teacher_pin', newPin.trim());
+      alert("✅ Đổi mã PIN GVCN thành công! Mã PIN mới của Thầy là: " + newPin.trim());
+    }
+    let isTeacher = false;
+
+    // Danh bạ 44 học sinh Lớp 11C7
+    const studentsData = [
+      { stt: 1, ho: "Lê Thanh", ten: "An", to: 4 },
+      { stt: 2, ho: "Đào Thị Ngọc", ten: "Anh", to: 1 },
+      { stt: 3, ho: "Lê Ngọc Nhật", ten: "Anh", to: 4 },
+      { stt: 4, ho: "Lê Thị Lan", ten: "Anh", to: 2 },
+      { stt: 5, ho: "Mai Thị Ngọc", ten: "Anh", to: 2 },
+      { stt: 6, ho: "Nguyễn Hồng", ten: "Ánh", to: 3 },
+      { stt: 7, ho: "Nguyễn Thị Huyền", ten: "Diệu", to: 4 },
+      { stt: 8, ho: "Nguyễn Thị", ten: "Duyên", to: 4 },
+      { stt: 9, ho: "Lê Văn", ten: "Đạt", to: 1 },
+      { stt: 10, ho: "Ngô Văn", ten: "Đăng", to: 4 },
+      { stt: 11, ho: "Hà Xuân Nam", ten: "Hải", to: 3 },
+      { stt: 12, ho: "Nguyễn Thị Minh", ten: "Hải", to: 2 },
+      { stt: 13, ho: "Lê Trung", ten: "Hiếu", to: 1 },
+      { stt: 14, ho: "Nguyễn Lê Thu", ten: "Hoàn", to: 2 },
+      { stt: 15, ho: "Nguyễn Đức", ten: "Kết", to: 3 },
+      { stt: 16, ho: "Lê Hữu", ten: "Khánh", to: 1 },
+      { stt: 17, ho: "Nguyễn Văn", ten: "Kiên", to: 4 },
+      { stt: 18, ho: "Lê Thị Thùy", ten: "Linh", to: 2 },
+      { stt: 19, ho: "Nguyễn Thị Ánh", ten: "Linh", to: 2 },
+      { stt: 20, ho: "Nguyễn Thị Hà", ten: "Linh", to: 3 },
+      { stt: 21, ho: "Lê Thị", ten: "Loan", to: 2 },
+      { stt: 22, ho: "Nguyễn Thị", ten: "Luyến", to: 1 },
+      { stt: 23, ho: "Lê Thị Xuân", ten: "Mai", to: 1 },
+      { stt: 24, ho: "Nguyễn Ngọc", ten: "Mai", to: 4 },
+      { stt: 25, ho: "Nguyễn Thị", ten: "Mai", to: 2 },
+      { stt: 26, ho: "Nguyễn Thị Tuyết", ten: "Mai", to: 2 },
+      { stt: 27, ho: "Đoàn Gia", ten: "Minh", to: 4 },
+      { stt: 28, ho: "Phạm Lê", ten: "Na", to: 1 },
+      { stt: 29, ho: "Nguyễn Đại", ten: "Nghĩa", to: 1 },
+      { stt: 30, ho: "Lê Thị Yến", ten: "Nhi", to: 1 },
+      { stt: 31, ho: "Mai Thị Yến", ten: "Nhi", to: 4 },
+      { stt: 32, ho: "Đào Thị Minh", ten: "Phúc", to: 4 },
+      { stt: 33, ho: "Hoàng Xuân", ten: "Sơn", to: 3 },
+      { stt: 34, ho: "Nguyễn Thị", ten: "Thùy", to: 3 },
+      { stt: 35, ho: "Lê Thị", ten: "Thương", to: 4 },
+      { stt: 36, ho: "Lê Đình", ten: "Trường", to: 3 },
+      { stt: 37, ho: "Lê Văn", ten: "Trường", to: 3 },
+      { stt: 38, ho: "Vũ Đình", ten: "Tú", to: 1 },
+      { stt: 39, ho: "Lê Đình", ten: "Tuấn", to: 3 },
+      { stt: 40, ho: "Hoàng An", ten: "Tuệ", to: 2 },
+      { stt: 41, ho: "Nguyễn Thị Thảo", ten: "Uyên", to: 1 },
+      { stt: 42, ho: "Lê Tất Anh", ten: "Vũ", to: 4 },
+      { stt: 43, ho: "Lê Thị Yến", ten: "Vy", to: 3 },
+      { stt: 44, ho: "Nguyễn Thành", ten: "Long", to: 2 }
+    ];
+
+    // TOÀN BỘ 58 TIÊU CHÍ GỐC ĐOÀN TRƯỜNG THPT TRIỆU SƠN 5
+    const defaultTieuChiDoanTruong = [
+    {
+        "id": "TT.01",
+        "tt": 1,
+        "cat": "I. QUY ĐỊNH VỀ TRANG PHỤC, TÁC PHONG",
+        "name": "Đầu tóc, trang phục, tác phong không theo quy định của nhà trường.",
+        "pts": -20,
+        "pts_str": "20đ/HS",
+        "unit": "HS"
+    },
+    {
+        "id": "TT.02",
+        "tt": 2,
+        "cat": "I. QUY ĐỊNH VỀ TRANG PHỤC, TÁC PHONG",
+        "name": "HS quên không mang phù hiệu, không đeo phù hiệu trong quá trình học tập và hoạt động tại trường; Cho mượn phù hiệu, mượn phù hiệu của người khác.",
+        "pts": -10,
+        "pts_str": "10đ/HS/lần",
+        "unit": "HS/lần"
+    },
+    {
+        "id": "TT.03",
+        "tt": 3,
+        "cat": "I. QUY ĐỊNH VỀ TRANG PHỤC, TÁC PHONG",
+        "name": "Học sinh nam không sơ vin, đi dép sai qui định",
+        "pts": -10,
+        "pts_str": "10đ/HS/lần",
+        "unit": "HS/lần"
+    },
+    {
+        "id": "TT.04",
+        "tt": 4,
+        "cat": "I. QUY ĐỊNH VỀ TRANG PHỤC, TÁC PHONG",
+        "name": "Phù hiệu không đúng quy định (Vẽ, dán lên phù hiệu…)",
+        "pts": -10,
+        "pts_str": "10đ/HS/lần",
+        "unit": "HS/lần"
+    },
+    {
+        "id": "TT.05",
+        "tt": 5,
+        "cat": "II. QUY ĐỊNH VỀ ĐẠO ĐỨC, LỐI SỐNG, HÀNH VI ỨNG XỬ",
+        "name": "Hành vi, ngôn ngữ ứng xử của học sinh thiếu văn hóa, không phù hợp với đạo đức và lối sống của lứa tuổi học sinh THPT.",
+        "pts": -20,
+        "pts_str": "20đ/HS/lần",
+        "unit": "HS/lần"
+    },
+    {
+        "id": "TT.06",
+        "tt": 6,
+        "cat": "II. QUY ĐỊNH VỀ ĐẠO ĐỨC, LỐI SỐNG, HÀNH VI ỨNG XỬ",
+        "name": "HS vô lễ, xúc phạm nhân phẩm, danh dự, xâm phạm thân thể của giáo viên, nhân viên nhà trường, người khác hoặc bạn học sinh khác.",
+        "pts": -40,
+        "pts_str": "40đ/HS/lần",
+        "unit": "HS/lần"
+    },
+    {
+        "id": "TT.07",
+        "tt": 7,
+        "cat": "II. QUY ĐỊNH VỀ ĐẠO ĐỨC, LỐI SỐNG, HÀNH VI ỨNG XỬ",
+        "name": "Sử dụng điện thoại trong giờ sinh hoạt tập thể",
+        "pts": -50,
+        "pts_str": "50đ/lần",
+        "unit": "lần"
+    },
+    {
+        "id": "TT.08",
+        "tt": 8,
+        "cat": "II. QUY ĐỊNH VỀ ĐẠO ĐỨC, LỐI SỐNG, HÀNH VI ỨNG XỬ",
+        "name": "Không để điện thoại vào thùng theo quy định",
+        "pts": -10,
+        "pts_str": "10đ/1 máy",
+        "unit": "1 máy"
+    },
+    {
+        "id": "TT.09",
+        "tt": 9,
+        "cat": "II. QUY ĐỊNH VỀ ĐẠO ĐỨC, LỐI SỐNG, HÀNH VI ỨNG XỬ",
+        "name": "Đánh nhau, gây rối trật tự, an ninh trong nhà trường và nơi công cộng.",
+        "pts": -40,
+        "pts_str": "40đ/HS/lần",
+        "unit": "HS/lần"
+    },
+    {
+        "id": "TT.10",
+        "tt": 10,
+        "cat": "II. QUY ĐỊNH VỀ ĐẠO ĐỨC, LỐI SỐNG, HÀNH VI ỨNG XỬ",
+        "name": "Trộm cắp; gian lận trong học tập, kiểm tra và thi cử.",
+        "pts": -40,
+        "pts_str": "40đ/HS/lần",
+        "unit": "HS/lần"
+    },
+    {
+        "id": "TT.11",
+        "tt": 11,
+        "cat": "II. QUY ĐỊNH VỀ ĐẠO ĐỨC, LỐI SỐNG, HÀNH VI ỨNG XỬ",
+        "name": "Lưu hành, sử dụng các ấn phẩm độc hại, đồi trụy. Đưa thông tin không lành mạnh, không xác thực, thiếu văn hóa lên các trang mạng xã hội; chơi các trò chơi mạng tính kích động bạo lực; tham gia các tệ nạn xã hội.",
+        "pts": -40,
+        "pts_str": "40đ/HS/lần",
+        "unit": "HS/lần"
+    },
+    {
+        "id": "TT.12",
+        "tt": 12,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Nghỉ học không có giấy xin phép hoặc báo cáo của phụ huynh (không phép).",
+        "pts": -10,
+        "pts_str": "10đ/HS/buổi",
+        "unit": "HS/buổi"
+    },
+    {
+        "id": "TT.13",
+        "tt": 13,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Nghỉ học có phép từ HS thứ 3 đến 5 (trừ các trường hợp đặc biệt: HS đi thi…)",
+        "pts": -1,
+        "pts_str": "1đ/HS/buổi",
+        "unit": "HS/buổi"
+    },
+    {
+        "id": "TT.14",
+        "tt": 14,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Nghỉ học có phép từ HS thứ 6 trở đi (trừ các trường hợp đặc biệt: HS đi thi…)",
+        "pts": -2,
+        "pts_str": "2đ/HS/buổi",
+        "unit": "HS/buổi"
+    },
+    {
+        "id": "TT.15",
+        "tt": 15,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Đi học chậm, vào lớp chậm (nếu đi giặt rẻ, đổ rác vào chậm trừ điểm VS chậm)",
+        "pts": -5,
+        "pts_str": "5đ/HS/lần",
+        "unit": "HS/lần"
+    },
+    {
+        "id": "TT.16",
+        "tt": 16,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Bỏ giờ, trốn tiết (kể cả tiết sinh hoạt dưới cờ đầu tuần)",
+        "pts": -30,
+        "pts_str": "30đ/HS/lần",
+        "unit": "HS/lần"
+    },
+    {
+        "id": "TT.17",
+        "tt": 17,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Nói chuyện, mất trật tự, làm việc riêng, không nghiêm túc… trong giờ học.",
+        "pts": -5,
+        "pts_str": "5đ/HS/lần",
+        "unit": "HS/lần"
+    },
+    {
+        "id": "TT.18",
+        "tt": 18,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Có mặt ở căng tin trong giờ sinh hoạt, tiết học, mang đồ vào trong lớp ăn",
+        "pts": -5,
+        "pts_str": "5đ/HS/lần",
+        "unit": "HS/lần"
+    },
+    {
+        "id": "TT.19",
+        "tt": 19,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Xếp ghế ngồi HS trong các buổi Sinh hoạt tập thể dưới cờ, ngoài giờ lên lớp chậm quá 5 phút, lộn xộn, mất trật tự, hát quốc ca bé hoặc không hát",
+        "pts": -40,
+        "pts_str": "40đ/lần",
+        "unit": "lần"
+    },
+    {
+        "id": "TT.20",
+        "tt": 20,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Cờ đỏ, xung kích đi trực chậm, nhờ trực hộ, đi trực không mang sổ trực và bút",
+        "pts": -10,
+        "pts_str": "10đ/buổi",
+        "unit": "buổi"
+    },
+    {
+        "id": "TT.21",
+        "tt": 21,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Cờ đỏ bỏ trực hoặc không báo cáo điểm cuối tuần, xung kích không báo và xếp xe.",
+        "pts": -10,
+        "pts_str": "10đ/buổi",
+        "unit": "buổi"
+    },
+    {
+        "id": "TT.22",
+        "tt": 22,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Cờ đỏ, xung kích làm việc không nghiêm túc, có sai sót.",
+        "pts": -5,
+        "pts_str": "5đ/lần",
+        "unit": "lần"
+    },
+    {
+        "id": "TT.23",
+        "tt": 23,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "HS trèo tường, ra hoặc vào nhà trường",
+        "pts": -30,
+        "pts_str": "30đ/HS/lần",
+        "unit": "HS/lần"
+    },
+    {
+        "id": "TT.24",
+        "tt": 24,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "HS tẩy xóa làm sai lệch thông tin trong sổ đầu bài.",
+        "pts": -30,
+        "pts_str": "30đ/lỗi",
+        "unit": "lỗi"
+    },
+    {
+        "id": "TT.25",
+        "tt": 25,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Không giao, nhận và ghi các thông tin trong sổ đầu bài theo quy định",
+        "pts": -5,
+        "pts_str": "5đ/buổi",
+        "unit": "buổi"
+    },
+    {
+        "id": "TT.26",
+        "tt": 26,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Xúi dục, rủ rê, lôi kéo bạn bè vi phạm nội quy nhà trường",
+        "pts": -20,
+        "pts_str": "20đ/HS/lần",
+        "unit": "HS/lần"
+    },
+    {
+        "id": "TT.27",
+        "tt": 27,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Tự động đưa các hoạt động không có trong kế hoạch, tổ chức khi chưa được sự cho phép của nhà trường",
+        "pts": -20,
+        "pts_str": "20đ/lần",
+        "unit": "lần"
+    },
+    {
+        "id": "TT.28",
+        "tt": 28,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Không tham gia các hoạt động do đoàn trường và nhà trường tổ chức",
+        "pts": -20,
+        "pts_str": "20đ/HS/lần",
+        "unit": "HS/lần"
+    },
+    {
+        "id": "TT.29",
+        "tt": 29,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Lớp học không ngăn nắp, gọn gàng, bàn ghế không thẳng hàng.",
+        "pts": -10,
+        "pts_str": "10đ/lần",
+        "unit": "lần"
+    },
+    {
+        "id": "TT.30",
+        "tt": 30,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Ban cán sự lớp không ghi thông tin sĩ số kịp thời kịp thời lên bảng hoặc ghi sai lệch.",
+        "pts": -10,
+        "pts_str": "10đ/lần",
+        "unit": "lần"
+    },
+    {
+        "id": "TT.31",
+        "tt": 31,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "HS ngồi sai sơ đồ lớp, đi xe trong trường, giờ giải lao tụ tập gây xích mích mất đoàn kết; tập trung trước cổng trường và hành lang đường giao thông khi tan học.",
+        "pts": -5,
+        "pts_str": "5đ/HS/lần",
+        "unit": "HS/lần"
+    },
+    {
+        "id": "TT.32",
+        "tt": 32,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Không mang vở, đồ dùng học tập, không ghi chép bài.",
+        "pts": -5,
+        "pts_str": "5đ/HS",
+        "unit": "HS"
+    },
+    {
+        "id": "TT.33",
+        "tt": 33,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Bị điểm kém (Dưới 5 điểm)",
+        "pts": -1,
+        "pts_str": "1đ/HS",
+        "unit": "HS"
+    },
+    {
+        "id": "TT.34",
+        "tt": 34,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Không làm bài tập, không học bài cũ",
+        "pts": -3,
+        "pts_str": "3đ/HS",
+        "unit": "HS"
+    },
+    {
+        "id": "TT.35",
+        "tt": 35,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Lớp bảo quản sổ đầu không tốt làm rách, mất sổ",
+        "pts": -30,
+        "pts_str": "30đ/lần",
+        "unit": "lần"
+    },
+    {
+        "id": "TT.36",
+        "tt": 36,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Gửi xe ngoài trường",
+        "pts": -20,
+        "pts_str": "20đ/lần",
+        "unit": "lần"
+    },
+    {
+        "id": "TT.37",
+        "tt": 37,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Vi phạm luật giao thông: không đội mũ bảo hiểm, đi xe sai phân khối, chở ba...",
+        "pts": -40,
+        "pts_str": "40đ/lần",
+        "unit": "lần"
+    },
+    {
+        "id": "TT.38",
+        "tt": 38,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Mũ thời trang, đội mũ BH nhưng không cài quay, gương thời trang, đục bô, độ xe.....",
+        "pts": -20,
+        "pts_str": "20đ/lần",
+        "unit": "lần"
+    },
+    {
+        "id": "TT.39",
+        "tt": 39,
+        "cat": "III. QUY ĐỊNH VỀ NỀ NẾP, HỌC TẬP",
+        "name": "Bí thư, cờ đỏ vắng họp, bỏ trực, nộp báo cáo chậm",
+        "pts": -10,
+        "pts_str": "10đ/lần",
+        "unit": "lần"
+    },
+    {
+        "id": "TT.40",
+        "tt": 40,
+        "cat": "IV. QUY ĐỊNH VỀ CÔNG CỤ CHÍNH, LAO ĐỘNG",
+        "name": "Lớp làm vệ sinh không đúng thời gian quy định, làm vệ sinh bẩn",
+        "pts": -10,
+        "pts_str": "10đ/lần",
+        "unit": "lần"
+    },
+    {
+        "id": "TT.41",
+        "tt": 41,
+        "cat": "IV. QUY ĐỊNH VỀ CÔNG CỤ CHÍNH, LAO ĐỘNG",
+        "name": "Lớp không làm vệ sinh cuối buổi học.",
+        "pts": -15,
+        "pts_str": "15đ/lần",
+        "unit": "lần"
+    },
+    {
+        "id": "TT.42",
+        "tt": 42,
+        "cat": "IV. QUY ĐỊNH VỀ CÔNG CỤ CHÍNH, LAO ĐỘNG",
+        "name": "Lớp trực tuần không làm vệ sinh sạch sẽ, không đảm bảo yêu cầu.",
+        "pts": -40,
+        "pts_str": "40đ/lần",
+        "unit": "lần"
+    },
+    {
+        "id": "TT.43",
+        "tt": 43,
+        "cat": "IV. QUY ĐỊNH VỀ CÔNG CỤ CHÍNH, LAO ĐỘNG",
+        "name": "Lớp trực tuần không chuẩn bị bàn ghế,loa đài, sân khấu trước và sau buổi sinh hoạt tập thể",
+        "pts": -30,
+        "pts_str": "30đ/lần",
+        "unit": "lần"
+    },
+    {
+        "id": "TT.44",
+        "tt": 44,
+        "cat": "IV. QUY ĐỊNH VỀ CÔNG CỤ CHÍNH, LAO ĐỘNG",
+        "name": "Lớp lao động không nghiêm túc, không hoàn thành công việc theo yêu cầu.",
+        "pts": -40,
+        "pts_str": "40đ/lần",
+        "unit": "lần"
+    },
+    {
+        "id": "TT.45",
+        "tt": 45,
+        "cat": "IV. QUY ĐỊNH VỀ CÔNG CỤ CHÍNH, LAO ĐỘNG",
+        "name": "Vẽ, khắc lên bàn, ghế, bảng, tường, cửa, khẩu hiệu; phù hiệu.",
+        "pts": -10,
+        "pts_str": "10đ/lỗi",
+        "unit": "lỗi"
+    },
+    {
+        "id": "TT.46",
+        "tt": 46,
+        "cat": "IV. QUY ĐỊNH VỀ CÔNG CỤ CHÍNH, LAO ĐỘNG",
+        "name": "Lớp đổ rác không đúng nơi quy định, vứt giấy bừa bãi ra môi trường.",
+        "pts": -20,
+        "pts_str": "20đ/lần",
+        "unit": "lần"
+    },
+    {
+        "id": "TT.47",
+        "tt": 47,
+        "cat": "V. BẢO VỆ CỦA CÔNG",
+        "name": "Cố ý làm hư hỏng bàn,ghế, cơ sỏ vật chất của nhà trường",
+        "pts": -40,
+        "pts_str": "40đ/lần",
+        "unit": "lần"
+    },
+    {
+        "id": "TT.48",
+        "tt": 48,
+        "cat": "V. BẢO VỆ CỦA CÔNG",
+        "name": "Không khóa cửa chính, đóng hệ thống cửa sổ khi ra về, không tắt điện khi ra khỏi phòng học.",
+        "pts": -20,
+        "pts_str": "20đ/buổi",
+        "unit": "buổi"
+    },
+    {
+        "id": "KT.01",
+        "tt": "+1",
+        "cat": "VI. KHEN THƯỞNG (+)",
+        "name": "Điểm 9, điểm 10 kiểm tra miệng / 15 phút / Điểm tốt môn học",
+        "pts": 5,
+        "pts_str": "+5đ/lần",
+        "unit": "lần"
+    },
+    {
+        "id": "KT.02",
+        "tt": "+2",
+        "cat": "VI. KHEN THƯỞNG (+)",
+        "name": "Được giáo viên bộ môn khen ngợi, tuyên dương về tinh thần học tập",
+        "pts": 5,
+        "pts_str": "+5đ/lần",
+        "unit": "lần"
+    },
+    {
+        "id": "KT.03",
+        "tt": "+3",
+        "cat": "VI. KHEN THƯỞNG (+)",
+        "name": "Làm việc tốt, nhặt được của rơi, gương người tốt việc tốt",
+        "pts": 10,
+        "pts_str": "+10đ/lần",
+        "unit": "lần"
+    },
+    {
+        "id": "KT.04",
+        "tt": "+4",
+        "cat": "VI. KHEN THƯỞNG (+)",
+        "name": "Thành tích xuất sắc trong phong trào Đoàn trường và thi đua",
+        "pts": 20,
+        "pts_str": "+20đ/lần",
+        "unit": "lần"
+    }
+];
+
+    // Danh mục tiêu chí đang dùng (đọc từ localStorage nếu GV đã từng chỉnh sửa)
+    let tieuChiDoanTruong = JSON.parse(localStorage.getItem('11C7_tieuchi_custom')) || JSON.parse(JSON.stringify(defaultTieuChiDoanTruong));
+
+    let recordsData = JSON.parse(localStorage.getItem('11C7_records_multi') || '[]');
+
+    function toggleAuth() {
+      if (isTeacher) {
+        isTeacher = false;
+        applyPermissions();
+        alert("Đã khóa chế độ! Đang ở chế độ Học sinh (Chỉ xem).");
+      } else {
+        const pass = prompt("Nhập mã PIN GVCN:");
+        if (pass === getTeacherPIN()) {
+          isTeacher = true;
+          applyPermissions();
+          alert("Mở khóa thành công! Chế độ GVCN toàn quyền.");
+        } else if (pass !== null) {
+          alert("Mã PIN không đúng!");
+        }
+      }
+    }
+
+    function applyPermissions() {
+      const body = document.body;
+      const indicator = document.getElementById('roleIndicator');
+      const authBtn = document.getElementById('authBtn');
+      const noticeBar = document.getElementById('studentNoticeBar');
+
+      if (isTeacher) {
+        body.classList.remove('is-student');
+        body.classList.add('is-teacher');
+        indicator.className = "role-badge teacher";
+        indicator.innerHTML = "🔓 Chế độ: GVCN (Toàn quyền)";
+        authBtn.textContent = "🔒 Khóa chỉnh sửa";
+        noticeBar.style.display = "none";
+        document.querySelectorAll('#hsBody input, #evalBody select, #evalBody input').forEach(el => {
+          el.removeAttribute('readonly');
+          el.removeAttribute('disabled');
+        });
+      } else {
+        body.classList.remove('is-teacher');
+        body.classList.add('is-student');
+        indicator.className = "role-badge student";
+        indicator.innerHTML = "🔒 Chế độ: Học sinh (Chỉ xem)";
+        authBtn.textContent = "🔑 Mở khóa GVCN";
+        noticeBar.style.display = "flex";
+        document.querySelectorAll('#hsBody input, #evalBody select, #evalBody input').forEach(el => {
+          el.setAttribute('readonly', 'true');
+          if (el.tagName === 'SELECT') el.setAttribute('disabled', 'true');
+        });
+      }
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      if (window.event && window.event.target) {
+        window.event.target.classList.add('active');
+      }
+    }
+
+    function onTimeScopeChange() {
+      const scope = document.getElementById('timeScope').value;
+      const weekWrap = document.getElementById('weekSelectWrapper');
+      const monthWrap = document.getElementById('monthSelectWrapper');
+      
+      if (scope === 'week') {
+        weekWrap.style.display = 'block';
+        monthWrap.style.display = 'none';
+      } else if (scope === 'month') {
+        weekWrap.style.display = 'none';
+        monthWrap.style.display = 'block';
+      } else {
+        weekWrap.style.display = 'none';
+        monthWrap.style.display = 'none';
+      }
+      renderRecordsAndRanking();
+    }
+
+    
+    // Dữ liệu sơ đồ chỗ ngồi chuẩn gốc (SO DO 3.pdf - 13/10/2026)
+    const defaultSeatingLayout = [
+      { tableId: "d1_t1_b1", day: 1, to: 1, ban: 1, title: "Bàn 1", students: ["Nguyễn Đại Nghĩa", "Vũ Đình Tú", "Nguyễn Thị Luyến", "Đào Thị Ngọc Anh"] },
+      { tableId: "d1_t1_b2", day: 1, to: 1, ban: 2, title: "Bàn 2", students: ["Lê Hữu Khánh", "Phạm Lê Na", "Lê Thị Xuân Mai", "Nguyễn Thị Thảo Uyên"] },
+      { tableId: "d1_t1_b3", day: 1, to: 1, ban: 3, title: "Bàn 3", students: ["Lê Trung Hiếu", "Lê Văn Đạt", "Lê Thị Yến Nhi"] },
+
+      { tableId: "d1_t3_b1", day: 1, to: 3, ban: 1, title: "Bàn 1", students: ["Lê Văn Trường", "Nguyễn Thị Thùy", "Nguyễn Hồng Ánh", "Hoàng Xuân Sơn"] },
+      { tableId: "d1_t3_b2", day: 1, to: 3, ban: 2, title: "Bàn 2", students: ["Nguyễn Đức Kết", "Lê Thị Yến Vy", "Nguyễn Thị Hà Linh"] },
+      { tableId: "d1_t3_b3", day: 1, to: 3, ban: 3, title: "Bàn 3", students: ["Hà Xuân Nam Hải", "Lê Đình Trường", "Lê Đình Tuấn"] },
+
+      { tableId: "d2_t2_b1", day: 2, to: 2, ban: 1, title: "Bàn 1", students: ["Nguyễn Thị Ánh Linh", "Nguyễn Thành Long", "Hoàng An Tuệ", "Lê Thị Thùy Linh"] },
+      { tableId: "d2_t2_b2", day: 2, to: 2, ban: 2, title: "Bàn 2", students: ["Lê Thị Lan Anh", "Lê Thị Loan", "Nguyễn Thị Mai", "Nguyễn Thị Minh Hải"] },
+      { tableId: "d2_t2_b3", day: 2, to: 2, ban: 3, title: "Bàn 3", students: ["Mai Thị Ngọc Anh", "Nguyễn Thị Tuyết Mai", "Nguyễn Lê Thu Hoàn"] },
+
+      { tableId: "d2_t4_b1", day: 2, to: 4, ban: 1, title: "Bàn 1", students: ["Mai Thị Yến Nhi", "Nguyễn Ngọc Mai", "Nguyễn Văn Kiên", "Đào Thị Minh Phúc"] },
+      { tableId: "d2_t4_b2", day: 2, to: 4, ban: 2, title: "Bàn 2", students: ["Nguyễn Thị Huyền Diệu", "Lê Thị Thương", "Nguyễn Thị Duyên", "Lê Thanh An"] },
+      { tableId: "d2_t4_b3", day: 2, to: 4, ban: 3, title: "Bàn 3", students: ["Ngô Văn Đăng", "Lê Tất Anh Vũ", "Đoàn Gia Minh", "Lê Ngọc Nhật Anh"] }
+    ];
+
+    let currentSeating = JSON.parse(localStorage.getItem('11C7_seating_layout')) || JSON.parse(JSON.stringify(defaultSeatingLayout));
+    let selectedSeatHS1 = "";
+    let selectedSeatHS2 = "";
+    let draggedStudentName = "";
+
+    function switchMoveMode(mode) {
+      const modeMove = document.getElementById('modeMovePanel');
+      const modeSwap = document.getElementById('modeSwapPanel');
+      if (mode === 'move') {
+        modeMove.style.display = 'block';
+        modeSwap.style.display = 'none';
+      } else {
+        modeMove.style.display = 'none';
+        modeSwap.style.display = 'block';
+      }
+    }
+
+    function syncStudentsTeamsFromSeating() {
+      currentSeating.forEach(table => {
+        table.students.forEach(name => {
+          const s = studentsData.find(item => `${item.ho} ${item.ten}`.trim() === name.trim());
+          if (s) {
+            s.to = table.to;
+          }
+        });
+      });
+    }
+
+    function renderSeatingChart() {
+      syncStudentsTeamsFromSeating();
+      const container = document.getElementById('seatingGridContainer');
+      if (!container) return;
+
+      const day1Tables = currentSeating.filter(t => t.day === 1);
+      const day2Tables = currentSeating.filter(t => t.day === 2);
+
+      let htmlDay1 = `
+        <div class="seat-col">
+          <h3 style="text-align: center; color: var(--primary); margin-bottom: 12px; font-size: 1.1rem; border-bottom: 2px solid #ced6e0; padding-bottom: 6px;">DÃY 1 (BÊN TRÁI)</h3>
+          <div style="font-weight: bold; color: #155724; margin: 10px 0 6px 0;">[TỔ 1 - PHÍA TRƯỚC]</div>
+      `;
+      day1Tables.filter(t => t.to === 1).forEach(t => {
+        htmlDay1 += renderTableCard(t);
+      });
+
+      htmlDay1 += `<div style="font-weight: bold; color: #856404; margin: 18px 0 6px 0;">[TỔ 3 - PHÍA SAU]</div>`;
+      day1Tables.filter(t => t.to === 3).forEach(t => {
+        htmlDay1 += renderTableCard(t);
+      });
+      htmlDay1 += `</div>`;
+
+      let htmlDay2 = `
+        <div class="seat-col">
+          <h3 style="text-align: center; color: var(--primary); margin-bottom: 12px; font-size: 1.1rem; border-bottom: 2px solid #ced6e0; padding-bottom: 6px;">DÃY 2 (BÊN PHẢI)</h3>
+          <div style="font-weight: bold; color: #0c5460; margin: 10px 0 6px 0;">[TỔ 2 - PHÍA TRƯỚC]</div>
+      `;
+      day2Tables.filter(t => t.to === 2).forEach(t => {
+        htmlDay2 += renderTableCard(t);
+      });
+
+      htmlDay2 += `<div style="font-weight: bold; color: #721c24; margin: 18px 0 6px 0;">[TỔ 4 - PHÍA SAU]</div>`;
+      day2Tables.filter(t => t.to === 4).forEach(t => {
+        htmlDay2 += renderTableCard(t);
+      });
+      htmlDay2 += `</div>`;
+
+      container.innerHTML = htmlDay1 + htmlDay2;
+      updateMoveAndSwapControls();
+    }
+
+    function renderTableCard(table) {
+      let tags = '';
+      table.students.forEach(name => {
+        const isSelected1 = (name === selectedSeatHS1);
+        const isSelected2 = (name === selectedSeatHS2);
+        let borderStyle = 'border: 1px solid #ced6e0;';
+        let bgStyle = 'background: #ffffff;';
+        if (isSelected1) {
+          borderStyle = 'border: 2px solid #e67e22;';
+          bgStyle = 'background: #fdebd0; color: #d35400; font-weight: bold;';
+        } else if (isSelected2) {
+          borderStyle = 'border: 2px solid #27ae60;';
+          bgStyle = 'background: #d4efdf; color: #1e8449; font-weight: bold;';
+        }
+
+        tags += `
+          <span class="student-tag" draggable="true" ondragstart="onSeatDragStart(event, '${name}')" ondragover="allowSeatDrop(event)" ondrop="onSeatDropSwap(event, '${name}')" style="cursor: grab; ${borderStyle} ${bgStyle} padding: 5px 10px; margin: 3px; display: inline-block; border-radius: 4px; font-size: 0.85rem; box-shadow: 0 1px 2px rgba(0,0,0,0.05);" onclick="onStudentSeatClick('${name}')" title="Kéo thả hoặc nhấp để chuyển chỗ">
+            ⠿ ${name}
+          </span>
+        `;
+      });
+
+      return `
+        <div class="table-card" ondragover="allowSeatDrop(event)" ondrop="onTableDropMove(event, '${table.tableId}')" style="background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 6px; padding: 10px; margin-bottom: 12px; transition: border 0.2s;">
+          <div class="table-title" style="display: flex; justify-content: space-between; font-weight: bold; color: var(--primary); font-size: 0.85rem; border-bottom: 1px dashed #cbd5e1; padding-bottom: 4px; margin-bottom: 6px;">
+            <span>Bàn ${table.ban} (${table.students.length} HS)</span>
+            <span style="font-size: 0.75rem; color: #64748b; background: #e2e8f0; padding: 1px 6px; border-radius: 10px;">Dãy ${table.day} - Tổ ${table.to}</span>
+          </div>
+          <div style="min-height: 38px;">${tags || '<span style="color: #94a3b8; font-style: italic; font-size: 0.8rem;">Bàn trống...</span>'}</div>
+        </div>
+      `;
+    }
+
+    // Drag and drop handlers
+    function onSeatDragStart(e, name) {
+      draggedStudentName = name;
+      e.dataTransfer.setData("text/plain", name);
+    }
+
+    function allowSeatDrop(e) {
+      e.preventDefault();
+    }
+
+    function onTableDropMove(e, targetTableId) {
+      e.preventDefault();
+      e.stopPropagation();
+      const studentName = draggedStudentName || e.dataTransfer.getData("text/plain");
+      if (!studentName) return;
+
+      if (!isTeacher) {
+        checkTeacherAuth();
+        if (!isTeacher) return;
+      }
+
+      moveStudentToTableDirect(studentName, targetTableId);
+    }
+
+    function onSeatDropSwap(e, targetStudentName) {
+      e.preventDefault();
+      e.stopPropagation();
+      const sourceName = draggedStudentName || e.dataTransfer.getData("text/plain");
+      if (!sourceName || sourceName === targetStudentName) return;
+
+      if (!isTeacher) {
+        checkTeacherAuth();
+        if (!isTeacher) return;
+      }
+
+      executeDirectSwap(sourceName, targetStudentName);
+    }
+
+    function checkTeacherAuth() {
+      const pass = prompt("Vui lòng nhập mã PIN GVCN để di chuyển chỗ ngồi:");
+      if (pass === getTeacherPIN()) {
+        isTeacher = true;
+        applyPermissions();
+      } else {
+        alert("Mã PIN không đúng! Chỉ GVCN mới có quyền thay đổi chỗ ngồi.");
+      }
+    }
+
+    function updateMoveAndSwapControls() {
+      const selMoveHS = document.getElementById('moveStudentSelect');
+      const selMoveTable = document.getElementById('moveTargetTableSelect');
+      const selSwap1 = document.getElementById('swapHS1');
+      const selSwap2 = document.getElementById('swapHS2');
+
+      if (!selMoveHS || !selMoveTable || !selSwap1 || !selSwap2) return;
+
+      const prevMoveHS = selMoveHS.value;
+      const prevMoveTable = selMoveTable.value;
+      const prevSwap1 = selSwap1.value || selectedSeatHS1;
+      const prevSwap2 = selSwap2.value || selectedSeatHS2;
+
+      selMoveHS.innerHTML = '';
+      selSwap1.innerHTML = '<option value="">-- Chọn học sinh 1 --</option>';
+      selSwap2.innerHTML = '<option value="">-- Chọn học sinh 2 --</option>';
+
+      studentsData.forEach(s => {
+        const full = `${s.ho} ${s.ten}`;
+        let curTableInfo = "";
+        currentSeating.forEach(tb => {
+          if (tb.students.includes(full)) {
+            curTableInfo = ` (Dãy ${tb.day} - Bàn ${tb.ban} - Tổ ${tb.to})`;
+          }
+        });
+
+        const optMove = document.createElement('option');
+        optMove.value = full;
+        optMove.textContent = `${s.stt}. ${full}${curTableInfo}`;
+        if (full === prevMoveHS) optMove.selected = true;
+        selMoveHS.appendChild(optMove);
+
+        const optSwap1 = document.createElement('option');
+        optSwap1.value = full;
+        optSwap1.textContent = `${s.stt}. ${full} (Tổ ${s.to})`;
+        if (full === prevSwap1) optSwap1.selected = true;
+        selSwap1.appendChild(optSwap1);
+
+        const optSwap2 = document.createElement('option');
+        optSwap2.value = full;
+        optSwap2.textContent = `${s.stt}. ${full} (Tổ ${s.to})`;
+        if (full === prevSwap2) optSwap2.selected = true;
+        selSwap2.appendChild(optSwap2);
+      });
+
+      selMoveTable.innerHTML = '';
+      currentSeating.forEach(tb => {
+        const optTb = document.createElement('option');
+        optTb.value = tb.tableId;
+        optTb.textContent = `Dãy ${tb.day} - Tổ ${tb.to} - Bàn ${tb.ban} (Hiện có ${tb.students.length} HS)`;
+        if (tb.tableId === prevMoveTable) optTb.selected = true;
+        selMoveTable.appendChild(optTb);
+      });
+    }
+
+    function executeMoveToTable() {
+      if (!isTeacher) {
+        checkTeacherAuth();
+        if (!isTeacher) return;
+      }
+
+      const studentName = document.getElementById('moveStudentSelect').value;
+      const targetTableId = document.getElementById('moveTargetTableSelect').value;
+      if (!studentName || !targetTableId) {
+        alert("Vui lòng chọn học sinh và bàn đích!");
+        return;
+      }
+
+      moveStudentToTableDirect(studentName, targetTableId);
+    }
+
+    function moveStudentToTableDirect(studentName, targetTableId) {
+      let sourceTable = null, sourceIdx = -1;
+      let targetTable = null;
+
+      currentSeating.forEach(table => {
+        const idx = table.students.indexOf(studentName);
+        if (idx !== -1) {
+          sourceTable = table;
+          sourceIdx = idx;
+        }
+        if (table.tableId === targetTableId) {
+          targetTable = table;
+        }
+      });
+
+      if (!sourceTable || !targetTable) {
+        alert("Không tìm thấy bàn học!");
+        return;
+      }
+      if (sourceTable.tableId === targetTable.tableId) {
+        alert(`Em ${studentName} hiện đã đang ngồi ở bàn này!`);
+        return;
+      }
+
+      if (targetTable.students.length >= 5) {
+        if (!confirm(`Bàn đích hiện đã có ${targetTable.students.length} học sinh. Thầy có chắc muốn xếp thêm em ${studentName} vào bàn này không?`)) {
+          return;
+        }
+      }
+
+      sourceTable.students.splice(sourceIdx, 1);
+      targetTable.students.push(studentName);
+
+      localStorage.setItem('11C7_seating_layout', JSON.stringify(currentSeating));
+
+      document.getElementById('swapHint').innerHTML = `✅ Đã chuyển em <strong>${studentName}</strong> từ <strong>Dãy ${sourceTable.day} - Bàn ${sourceTable.ban} (Tổ ${sourceTable.to})</strong> sang <strong>Dãy ${targetTable.day} - Bàn ${targetTable.ban} (Tổ ${targetTable.to})</strong>!`;
+      document.getElementById('swapHint').style.color = '#27ae60';
+
+      renderSeatingChart();
+      initStudentsTable();
+      initDropdowns();
+      renderRecordsAndRanking();
+    }
+
+    function onStudentSeatClick(name) {
+      if (!isTeacher) {
+        checkTeacherAuth();
+        if (!isTeacher) return;
+      }
+
+      if (!selectedSeatHS1 || (selectedSeatHS1 && selectedSeatHS2)) {
+        selectedSeatHS1 = name;
+        selectedSeatHS2 = "";
+        document.getElementById('swapHS1').value = name;
+        document.getElementById('swapHS2').value = "";
+        document.getElementById('moveStudentSelect').value = name;
+        document.getElementById('swapHint').innerHTML = `Đã chọn: <strong>${name}</strong>. Chọn tiếp học sinh thứ 2 để đổi chỗ, hoặc chọn bàn đích để chuyển!`;
+        document.getElementById('swapHint').style.color = '#e67e22';
+      } else if (selectedSeatHS1 && !selectedSeatHS2) {
+        if (name === selectedSeatHS1) {
+          selectedSeatHS1 = "";
+          document.getElementById('swapHS1').value = "";
+          document.getElementById('swapHint').textContent = "Đã hủy chọn học sinh.";
+          renderSeatingChart();
+          return;
+        }
+        selectedSeatHS2 = name;
+        document.getElementById('swapHS2').value = name;
+        executeDirectSwap(selectedSeatHS1, selectedSeatHS2);
+      }
+      renderSeatingChart();
+    }
+
+    function highlightSelectedSeat() {
+      selectedSeatHS1 = document.getElementById('swapHS1').value;
+      selectedSeatHS2 = document.getElementById('swapHS2').value;
+      renderSeatingChart();
+    }
+
+    function executeSwap() {
+      if (!isTeacher) {
+        checkTeacherAuth();
+        if (!isTeacher) return;
+      }
+
+      const name1 = document.getElementById('swapHS1').value || selectedSeatHS1;
+      const name2 = document.getElementById('swapHS2').value || selectedSeatHS2;
+
+      if (!name1 || !name2) {
+        alert("Vui lòng chọn đủ 2 học sinh để hoán đổi chỗ!");
+        return;
+      }
+      executeDirectSwap(name1, name2);
+    }
+
+    function executeDirectSwap(name1, name2) {
+      if (name1 === name2) {
+        alert("Hai vị trí chọn cùng một học sinh!");
+        return;
+      }
+
+      let table1 = null, idx1 = -1;
+      let table2 = null, idx2 = -1;
+
+      currentSeating.forEach(table => {
+        const i1 = table.students.indexOf(name1);
+        if (i1 !== -1) { table1 = table; idx1 = i1; }
+        const i2 = table.students.indexOf(name2);
+        if (i2 !== -1) { table2 = table; idx2 = i2; }
+      });
+
+      if (!table1 || !table2) {
+        alert("Không tìm thấy vị trí học sinh!");
+        return;
+      }
+
+      if (confirm(`Xác nhận đổi chỗ giữa:\n👉 [${name1}] (Dãy ${table1.day} - Bàn ${table1.ban} - Tổ ${table1.to})\n⇋\n👉 [${name2}] (Dãy ${table2.day} - Bàn ${table2.ban} - Tổ ${table2.to})?`)) {
+        table1.students[idx1] = name2;
+        table2.students[idx2] = name1;
+
+        localStorage.setItem('11C7_seating_layout', JSON.stringify(currentSeating));
+
+        selectedSeatHS1 = "";
+        selectedSeatHS2 = "";
+        document.getElementById('swapHS1').value = "";
+        document.getElementById('swapHS2').value = "";
+        document.getElementById('swapHint').innerHTML = `🎉 Đã đổi chỗ thành công giữa <strong>${name1}</strong> và <strong>${name2}</strong>! Toàn bộ sổ theo dõi 4 tổ đã tự động cập nhật.`;
+        document.getElementById('swapHint').style.color = '#27ae60';
+
+        renderSeatingChart();
+        initStudentsTable();
+        initDropdowns();
+        renderRecordsAndRanking();
+      }
+    }
+
+    function resetSeatingToDefault() {
+      if (!isTeacher) {
+        checkTeacherAuth();
+        if (!isTeacher) return;
+      }
+
+      if (confirm("Thầy có chắc chắn muốn khôi phục lại Sơ đồ chỗ ngồi gốc ban đầu (ngày 13/10/2026)?")) {
+        currentSeating = JSON.parse(JSON.stringify(defaultSeatingLayout));
+        localStorage.removeItem('11C7_seating_layout');
+        selectedSeatHS1 = "";
+        selectedSeatHS2 = "";
+        renderSeatingChart();
+        initStudentsTable();
+        initDropdowns();
+        renderRecordsAndRanking();
+        alert("Đã khôi phục thành công sơ đồ chỗ ngồi gốc ban đầu!");
+      }
+    }
+
+    function init() {
+      renderSeatingChart();
+      initDropdowns();
+      initStudentsTable();
+      initTieuChiTable();
+      renderRecordsAndRanking();
+      applyPermissions();
+      document.getElementById('recordDate').value = new Date().toISOString().split('T')[0];
+    }
+
+    function initDropdowns() {
+      const listHS = document.getElementById('listHS');
+      const listTC = document.getElementById('listTC');
+      const selSMS = document.getElementById('smsHS');
+
+      listHS.innerHTML = '';
+      listTC.innerHTML = '';
+      selSMS.innerHTML = '';
+
+      studentsData.forEach(s => {
+        const full = `${s.ho} ${s.ten}`;
+        const opt = document.createElement('option');
+        opt.value = `${s.stt}. ${full} (Tổ ${s.to})`;
+        listHS.appendChild(opt);
+
+        const optSMS = document.createElement('option');
+        optSMS.value = full;
+        optSMS.textContent = `${s.stt}. ${full}`;
+        selSMS.appendChild(optSMS);
+      });
+
+      tieuChiDoanTruong.forEach(tc => {
+        const opt = document.createElement('option');
+        const sign = tc.pts > 0 ? `+${tc.pts}đ` : `${tc.pts}đ`;
+        opt.value = `[${tc.id}] ${tc.name} (${sign}) - ${tc.cat}`;
+        listTC.appendChild(opt);
+      });
+
+      const firstStudent = studentsData[0];
+      document.getElementById('searchHSInput').value = `${firstStudent.stt}. ${firstStudent.ho} ${firstStudent.ten} (Tổ ${firstStudent.to})`;
+      document.getElementById('recordHS').value = firstStudent.stt;
+
+      if (tieuChiDoanTruong.length > 0) {
+        const firstTC = tieuChiDoanTruong[0];
+        const sign0 = firstTC.pts > 0 ? `+${firstTC.pts}đ` : `${firstTC.pts}đ`;
+        document.getElementById('searchTypeInput').value = `[${firstTC.id}] ${firstTC.name} (${sign0}) - ${firstTC.cat}`;
+        document.getElementById('recordType').value = firstTC.id;
+      }
+
+      updatePointPreview();
+    }
+
+    function onHSInputChange() {
+      const val = document.getElementById('searchHSInput').value.trim().toLowerCase();
+      const match = studentsData.find(s => {
+        const full = `${s.stt}. ${s.ho} ${s.ten} (tổ ${s.to})`.toLowerCase();
+        const justName = `${s.ho} ${s.ten}`.toLowerCase();
+        const ten = s.ten.toLowerCase();
+        return full === val || justName === val || val.startsWith(`${s.stt}.`) || val === `${s.stt}` || ten === val;
+      });
+
+      if (match) {
+        document.getElementById('recordHS').value = match.stt;
+        document.getElementById('selectedHSLabel').innerHTML = `✓ Đang chọn: <strong>${match.stt}. ${match.ho} ${match.ten} (Tổ ${match.to})</strong>`;
+        document.getElementById('selectedHSLabel').style.color = '#27ae60';
+      } else {
+        document.getElementById('selectedHSLabel').innerHTML = `⚠️ Nhập tên hoặc chọn từ danh sách gợi ý...`;
+        document.getElementById('selectedHSLabel').style.color = '#e67e22';
+      }
+    }
+
+    function onTypeInputChange() {
+      const val = document.getElementById('searchTypeInput').value.trim().toLowerCase();
+      const match = tieuChiDoanTruong.find(tc => {
+        const text = `[${tc.id}] ${tc.name}`.toLowerCase();
+        return val.includes(tc.id.toLowerCase()) || text.includes(val) || tc.name.toLowerCase().includes(val);
+      });
+
+      if (match) {
+        document.getElementById('recordType').value = match.id;
+        const sign = match.pts > 0 ? `+${match.pts}đ` : `${match.pts}đ`;
+        document.getElementById('selectedTypeLabel').innerHTML = `✓ Đang chọn: <strong>[${match.id}] ${match.name} (${sign})</strong>`;
+        document.getElementById('selectedTypeLabel').style.color = match.pts > 0 ? '#27ae60' : '#c0392b';
+        updatePointPreview();
+      } else {
+        document.getElementById('selectedTypeLabel').innerHTML = `⚠️ Gõ từ khóa hoặc chọn từ danh mục gợi ý...`;
+        document.getElementById('selectedTypeLabel').style.color = '#e67e22';
+      }
+    }
+
+    function updatePointPreview() {
+      const tcId = document.getElementById('recordType').value;
+      const tc = tieuChiDoanTruong.find(t => t.id === tcId);
+      const hint = document.getElementById('pointHint');
+      if (tc) {
+        if (tc.pts < 0) {
+          hint.innerHTML = `⚠️ Đoàn trường quy định: Trừ ${Math.abs(tc.pts)}đ lần 1. Tái phạm trong tuần: Lần 2 trừ ${Math.abs(tc.pts)*2}đ, Lần 3 trừ ${Math.abs(tc.pts)*3}đ (cấp số cộng).`;
+          hint.style.color = '#c0392b';
+        } else {
+          hint.innerHTML = `🌟 Khen thưởng: +${tc.pts}đ vào quỹ thi đua của học sinh và tổ.`;
+          hint.style.color = '#27ae60';
+        }
+      }
+    }
+
+    /* === QUẢN LÝ TIÊU CHÍ: THÊM, SỬA, XÓA TRỰC TIẾP === */
+    function saveTCToStorage() {
+      localStorage.setItem('11C7_tieuchi_custom', JSON.stringify(tieuChiDoanTruong));
+      initDropdowns();
+      initTieuChiTable();
+      renderRecordsAndRanking();
+    }
+
+    function initTieuChiTable() {
+      const tbody = document.getElementById('tieuchiBody');
+      const countEl = document.getElementById('tcTotalCount');
+      if (countEl) countEl.textContent = `Tổng cộng: ${tieuChiDoanTruong.length} tiêu chí`;
+      tbody.innerHTML = '';
+      tieuChiDoanTruong.forEach(tc => {
+        const tr = document.createElement('tr');
+        const color = tc.pts > 0 ? '#27ae60' : '#c0392b';
+        const sign = tc.pts > 0 ? `+${tc.pts}đ` : `${tc.pts}đ`;
+        tr.innerHTML = `
+          <td><strong>${tc.id}</strong></td>
+          <td style="color: var(--primary); font-weight: 600;">${tc.cat}</td>
+          <td>${tc.name}</td>
+          <td style="text-align: center; font-weight: bold; color: ${color};">${sign} / ${tc.unit}</td>
+          <td class="action-col" style="text-align: center;">
+            <button class="btn-edit-row" onclick="handleEditClick('${tc.id}')">✏️ Sửa</button>
+            <button class="btn-del-row" onclick="handleDeleteClick('${tc.id}')">🗑️</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function filterTCTable() {
+      const q = document.getElementById('searchTCTable').value.trim().toLowerCase();
+      document.querySelectorAll('#tieuchiBody tr').forEach(row => {
+        row.style.display = row.innerText.toLowerCase().includes(q) ? '' : 'none';
+      });
+    }
+
+    function handleEditClick(tcId) {
+      if (!isTeacher) {
+        const pass = prompt("Vui lòng nhập mã PIN GVCN để chỉnh sửa tiêu chí:");
+        if (pass === getTeacherPIN()) {
+          isTeacher = true;
+          applyPermissions();
+        } else {
+          alert("Mã PIN không đúng! Chỉ GVCN mới có quyền sửa tiêu chí.");
+          return;
+        }
+      }
+      editTC(tcId);
+    }
+
+    function handleDeleteClick(tcId) {
+      if (!isTeacher) {
+        const pass = prompt("Vui lòng nhập mã PIN GVCN để xóa tiêu chí:");
+        if (pass === getTeacherPIN()) {
+          isTeacher = true;
+          applyPermissions();
+        } else {
+          alert("Mã PIN không đúng! Chỉ GVCN mới có quyền xóa tiêu chí.");
+          return;
+        }
+      }
+      deleteTC(tcId);
+    }
+
+    function toggleAddTCForm(show = true) {
+      if (show && !isTeacher) {
+        const pass = prompt("Vui lòng nhập mã PIN GVCN để thêm tiêu chí mới:");
+        if (pass === getTeacherPIN()) {
+          isTeacher = true;
+          applyPermissions();
+        } else {
+          alert("Mã PIN không đúng!");
+          return;
+        }
+      }
+      const form = document.getElementById('addTCForm');
+      if (show) {
+        form.style.display = 'block';
+        document.getElementById('tcFormTitle').textContent = '➕ Thêm tiêu chí thi đua mới';
+        document.getElementById('editingTcId').value = '';
+        document.getElementById('newTcId').value = '';
+        document.getElementById('newTcName').value = '';
+        document.getElementById('newTcPts').value = '-10';
+        document.getElementById('newTcUnit').value = 'HS/lần';
+        document.getElementById('newTcId').focus();
+        form.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        form.style.display = 'none';
+      }
+    }
+
+    function editTC(tcId) {
+      const tc = tieuChiDoanTruong.find(t => t.id === tcId);
+      if (!tc) return;
+      const form = document.getElementById('addTCForm');
+      form.style.display = 'block';
+      document.getElementById('tcFormTitle').innerHTML = `✏️ Chỉnh sửa tiêu chí: <strong>${tc.id}</strong>`;
+      document.getElementById('editingTcId').value = tc.id;
+      document.getElementById('newTcId').value = tc.id;
+      document.getElementById('newTcCat').value = tc.cat;
+      document.getElementById('newTcName').value = tc.name;
+      document.getElementById('newTcPts').value = tc.pts;
+      document.getElementById('newTcUnit').value = tc.unit;
+      form.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function saveNewOrEditTC() {
+      const editingId = document.getElementById('editingTcId').value.trim();
+      const tcId = document.getElementById('newTcId').value.trim();
+      const cat = document.getElementById('newTcCat').value;
+      const name = document.getElementById('newTcName').value.trim();
+      const pts = parseInt(document.getElementById('newTcPts').value) || 0;
+      const unit = document.getElementById('newTcUnit').value.trim() || 'lần';
+
+      if (!tcId || !name) {
+        alert("Vui lòng nhập đầy đủ Mã tiêu chí và Tên nội dung!");
+        return;
+      }
+
+      if (editingId) {
+        const idx = tieuChiDoanTruong.findIndex(t => t.id === editingId);
+        if (idx !== -1) {
+          tieuChiDoanTruong[idx] = { id: tcId, cat, name, pts, unit };
+        }
+      } else {
+        const existing = tieuChiDoanTruong.find(t => t.id === tcId);
+        if (existing) {
+          alert(`Mã tiêu chí "${tcId}" đã tồn tại! Vui lòng chọn mã khác.`);
+          return;
+        }
+        tieuChiDoanTruong.push({ id: tcId, cat, name, pts, unit });
+      }
+
+      saveTCToStorage();
+      toggleAddTCForm(false);
+      alert(`Đã lưu tiêu chí [${tcId}] thành công!`);
+    }
+
+    function deleteTC(tcId) {
+      const tc = tieuChiDoanTruong.find(t => t.id === tcId);
+      if (!tc) return;
+      if (confirm(`Thầy có chắc chắn muốn xóa tiêu chí [${tc.id}] "${tc.name}"?`)) {
+        tieuChiDoanTruong = tieuChiDoanTruong.filter(t => t.id !== tcId);
+        saveTCToStorage();
+        alert(`Đã xóa tiêu chí [${tcId}]!`);
+      }
+    }
+
+    function resetTCToDefault() {
+      if (!isTeacher) {
+        const pass = prompt("Vui lòng nhập mã PIN GVCN để khôi phục:");
+        if (pass === getTeacherPIN()) {
+          isTeacher = true;
+          applyPermissions();
+        } else {
+          alert("Mã PIN không đúng!");
+          return;
+        }
+      }
+      if (confirm("Thầy có muốn khôi phục toàn bộ danh mục về danh sách tiêu chí gốc của Đoàn trường THPT Triệu Sơn 5 không?")) {
+        tieuChiDoanTruong = JSON.parse(JSON.stringify(defaultTieuChiDoanTruong));
+        localStorage.removeItem('11C7_tieuchi_custom');
+        initDropdowns();
+        initTieuChiTable();
+        renderRecordsAndRanking();
+        alert("Đã khôi phục thành công danh mục tiêu chí gốc!");
+      }
+    }
+
+    function initStudentsTable() {
+      const hsBody = document.getElementById('hsBody');
+      const evalBody = document.getElementById('evalBody');
+      const savedInfo = JSON.parse(localStorage.getItem('11C7_student_info') || '{}');
+      const savedEval = JSON.parse(localStorage.getItem('11C7_student_eval') || '{}');
+
+      hsBody.innerHTML = '';
+      evalBody.innerHTML = '';
+
+      studentsData.forEach(s => {
+        const full = `${s.ho} ${s.ten}`;
+        const info = savedInfo[s.stt] || { role: "", note: "" };
+        const evalVal = savedEval[s.stt] || { rank: "Tot", comment: "Ngoan ngoãn, chấp hành nghiêm túc nội quy trường lớp, tích cực trong phong trào." };
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${s.stt}</td>
+          <td><strong>${full}</strong></td>
+          <td><span class="badge badge-to${s.to}">Tổ ${s.to}</span></td>
+          <td><input type="text" id="role_${s.stt}" value="${info.role}" placeholder="Chức vụ..." readonly></td>
+          <td><input type="text" id="note_${s.stt}" value="${info.note}" placeholder="Ghi chú hoàn cảnh..." readonly></td>
+          <td class="teacher-only no-print">
+            <button class="btn" style="padding: 3px 8px; font-size: 0.75rem;" onclick="saveSingleHS(${s.stt})">Lưu</button>
+          </td>
+        `;
+        hsBody.appendChild(tr);
+
+        const evalTr = document.createElement('tr');
+        evalTr.innerHTML = `
+          <td>${s.stt}</td>
+          <td><strong>${full}</strong></td>
+          <td>
+            <select id="evalRank_${s.stt}" disabled>
+              <option value="Tot" ${evalVal.rank === 'Tot' ? 'selected' : ''}>Tốt</option>
+              <option value="Kha" ${evalVal.rank === 'Kha' ? 'selected' : ''}>Khá</option>
+              <option value="Dat" ${evalVal.rank === 'Dat' ? 'selected' : ''}>Đạt</option>
+              <option value="ChuaDat" ${evalVal.rank === 'ChuaDat' ? 'selected' : ''}>Chưa đạt</option>
+            </select>
+          </td>
+          <td><input type="text" id="evalComment_${s.stt}" value="${evalVal.comment}" readonly></td>
+        `;
+        evalBody.appendChild(evalTr);
+      });
+    }
+
+    function renderRecordsAndRanking() {
+      const scope = document.getElementById('timeScope').value;
+      const targetWeek = parseInt(document.getElementById('selectedWeek').value);
+      const targetMonth = parseInt(document.getElementById('selectedMonth').value);
+
+      const recBody = document.getElementById('recordBody');
+      recBody.innerHTML = '';
+
+      const filteredRecords = recordsData.filter(rec => {
+        const recDate = new Date(rec.date);
+        const recMonth = recDate.getMonth() + 1;
+        const recWeek = parseInt(rec.week || 1);
+
+        if (scope === 'week') {
+          return recWeek === targetWeek;
+        } else if (scope === 'month') {
+          return recMonth === targetMonth;
+        } else if (scope === 'semester1') {
+          return [9, 10, 11, 12, 1].includes(recMonth);
+        } else if (scope === 'semester2') {
+          return [2, 3, 4, 5].includes(recMonth);
+        } else {
+          return true;
+        }
+      });
+
+      recordsData.forEach((rec, idx) => {
+        const student = studentsData.find(s => s.stt === rec.stt);
+        const tc = tieuChiDoanTruong.find(t => t.id === rec.tcId);
+        if (!student || !tc) return;
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="text-align: center; font-weight: bold;">Tuần ${rec.week || '-'}</td>
+          <td>${rec.date}</td>
+          <td><strong>${student.ho} ${student.ten}</strong></td>
+          <td style="text-align: center;"><span class="badge badge-to${student.to}">Tổ ${student.to}</span></td>
+          <td>[${tc.id}] ${tc.name}</td>
+          <td style="text-align: center; font-weight: bold; color: ${rec.appliedPts > 0 ? '#27ae60' : '#c0392b'};">
+            ${rec.appliedPts > 0 ? `+${rec.appliedPts}đ` : `${rec.appliedPts}đ`}
+          </td>
+          <td class="teacher-only no-print">
+            <button class="btn btn-danger" style="padding: 2px 6px; font-size: 0.75rem;" onclick="deleteRecord(${idx})">Xóa</button>
+          </td>
+        `;
+        recBody.appendChild(tr);
+      });
+
+      const studentScores = {};
+      studentsData.forEach(s => {
+        studentScores[s.stt] = { plus: 0, minus: 0, details: [] };
+      });
+
+      filteredRecords.forEach(rec => {
+        if (!studentScores[rec.stt]) return;
+        const tc = tieuChiDoanTruong.find(t => t.id === rec.tcId);
+        const pts = rec.appliedPts;
+        if (pts < 0) {
+          studentScores[rec.stt].minus += Math.abs(pts);
+          studentScores[rec.stt].details.push(`${tc ? tc.name : 'Vi phạm'} (${pts}đ)`);
+        } else {
+          studentScores[rec.stt].plus += pts;
+          studentScores[rec.stt].details.push(`Khen: ${tc ? tc.name : 'Điểm tốt'} (+${pts}đ)`);
+        }
+      });
+
+      const rankBody = document.getElementById('rankingBody');
+      rankBody.innerHTML = '';
+
+      const toStats = {
+        1: { minus: 0, plus: 0, errors: 0 },
+        2: { minus: 0, plus: 0, errors: 0 },
+        3: { minus: 0, plus: 0, errors: 0 },
+        4: { minus: 0, plus: 0, errors: 0 }
+      };
+
+      studentsData.forEach(s => {
+        const data = studentScores[s.stt];
+        const finalScore = 100 - data.minus + data.plus;
+        
+        toStats[s.to].minus += data.minus;
+        toStats[s.to].plus += data.plus;
+        if (data.minus > 0) toStats[s.to].errors += data.details.length;
+
+        let rankBadge = "";
+        let tt22Badge = "";
+        let evalVal = "Tot";
+
+        if (finalScore >= 95) {
+          rankBadge = `<span class="rank-xs">Xuất sắc</span>`;
+          tt22Badge = `<span class="rank-xs">TỐT</span>`;
+          evalVal = "Tot";
+        } else if (finalScore >= 80) {
+          rankBadge = `<span class="rank-tot">Tốt</span>`;
+          tt22Badge = `<span class="rank-tot">TỐT</span>`;
+          evalVal = "Tot";
+        } else if (finalScore >= 65) {
+          rankBadge = `<span class="rank-kha">Khá</span>`;
+          tt22Badge = `<span class="rank-kha">KHÁ</span>`;
+          evalVal = "Kha";
+        } else if (finalScore >= 50) {
+          rankBadge = `<span class="rank-tb">Trung bình</span>`;
+          tt22Badge = `<span class="rank-tb">ĐẠT</span>`;
+          evalVal = "Dat";
+        } else {
+          rankBadge = `<span class="rank-yeu">Yếu</span>`;
+          tt22Badge = `<span class="rank-yeu">CHƯA ĐẠT</span>`;
+          evalVal = "ChuaDat";
+        }
+
+        if (['year', 'semester1', 'semester2'].includes(scope)) {
+          const sel = document.getElementById(`evalRank_${s.stt}`);
+          if (sel) sel.value = evalVal;
+        }
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${s.stt}</td>
+          <td><strong>${s.ho} ${s.ten}</strong></td>
+          <td style="text-align: center;"><span class="badge badge-to${s.to}">Tổ ${s.to}</span></td>
+          <td style="text-align: center; color: #27ae60; font-weight: bold;">+${data.plus}</td>
+          <td style="text-align: center; color: #c0392b; font-weight: bold;">-${data.minus}</td>
+          <td style="text-align: center; font-size: 1rem; font-weight: bold; color: ${finalScore >= 80 ? '#27ae60' : (finalScore >= 65 ? '#f39c12' : '#c0392b')};">${finalScore}</td>
+          <td style="text-align: center;">${rankBadge}</td>
+          <td style="text-align: center;">${tt22Badge}</td>
+          <td style="font-size: 0.82rem; color: #555;">${data.details.length > 0 ? data.details.join('; ') : 'Chấp hành nghiêm túc nội quy'}</td>
+        `;
+        rankBody.appendChild(tr);
+      });
+
+      [1, 2, 3, 4].forEach(toId => {
+        const st = toStats[toId];
+        const toScore = Math.max(0, 100 - st.minus + st.plus);
+        document.getElementById(`scoreTo${toId}`).textContent = toScore;
+        document.getElementById(`errTo${toId}`).textContent = `${st.errors} lượt ghi nhận (-${st.minus}đ)`;
+
+        let toRank = "";
+        if (toScore >= 95) toRank = `<span class="rank-xs">Hạng Nhất - Xuất sắc</span>`;
+        else if (toScore >= 80) toRank = `<span class="rank-tot">Hạng Nhì - Tốt</span>`;
+        else if (toScore >= 65) toRank = `<span class="rank-kha">Hạng Ba - Khá</span>`;
+        else toRank = `<span class="rank-yeu">Cần nỗ lực</span>`;
+        document.getElementById(`rankTo${toId}`).innerHTML = toRank;
+      });
+    }
+
+    function addRecord() {
+      onHSInputChange();
+      onTypeInputChange();
+      const stt = parseInt(document.getElementById('recordHS').value);
+      const tcId = document.getElementById('recordType').value;
+      const week = parseInt(document.getElementById('recWeek').value);
+      const date = document.getElementById('recordDate').value;
+      const tc = tieuChiDoanTruong.find(t => t.id === tcId);
+      if (!tc) return;
+
+      let count = 0;
+      recordsData.forEach(r => {
+        if (r.stt === stt && r.tcId === tcId && parseInt(r.week) === week && tc.pts < 0) {
+          count++;
+        }
+      });
+      const multiplier = count + 1;
+      const appliedPts = tc.pts < 0 ? (tc.pts * multiplier) : tc.pts;
+
+      recordsData.unshift({ stt, tcId, week, date, appliedPts });
+      localStorage.setItem('11C7_records_multi', JSON.stringify(recordsData));
+      renderRecordsAndRanking();
+      alert(`Đã ghi nhận thành công! Áp dụng điểm: ${appliedPts > 0 ? '+'+appliedPts : appliedPts}đ (Lần ${multiplier} trong tuần)`);
+    }
+
+    function deleteRecord(index) {
+      if (confirm("Xác nhận xóa bản ghi vi phạm này?")) {
+        recordsData.splice(index, 1);
+        localStorage.setItem('11C7_records_multi', JSON.stringify(recordsData));
+        renderRecordsAndRanking();
+      }
+    }
+
+    function exportRankingToExcel() {
+      window.print();
+    }
+
+    function filterRank() {
+      const q = document.getElementById('searchRank').value.toLowerCase();
+      document.querySelectorAll('#rankingBody tr').forEach(row => {
+        row.style.display = row.innerText.toLowerCase().includes(q) ? '' : 'none';
+      });
+    }
+
+    function saveSingleHS(stt) {
+      const savedInfo = JSON.parse(localStorage.getItem('11C7_student_info') || '{}');
+      savedInfo[stt] = {
+        role: document.getElementById(`role_${stt}`).value,
+        note: document.getElementById(`note_${stt}`).value
+      };
+      localStorage.setItem('11C7_student_info', JSON.stringify(savedInfo));
+      alert("Đã lưu thông tin học sinh STT " + stt);
+    }
+
+    function saveEvaluations() {
+      const savedEval = {};
+      studentsData.forEach(s => {
+        savedEval[s.stt] = {
+          rank: document.getElementById(`evalRank_${s.stt}`).value,
+          comment: document.getElementById(`evalComment_${s.stt}`).value
+        };
+      });
+      localStorage.setItem('11C7_student_eval', JSON.stringify(savedEval));
+      alert("Đã lưu toàn bộ nhận xét rèn luyện học bạ chuẩn Thông tư 22!");
+    }
+
+    function generateSHKichBan() {
+      const title = document.getElementById('shTitle').value;
+      const text = `CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM\nĐộc lập - Tự do - Hạnh phúc\n-----------------------------\nBIÊN BẢN & KỊCH BẢN TIẾT SINH HOẠT LỚP 11C7\nChủ đề: ${title}\nThời gian: Tiết 5, Thứ Bảy | Địa điểm: Phòng học 11C7 - Trường THPT Triệu Sơn 5\nChủ trì: Thầy Trần Đình Thanh (GVCN) & Ban cán sự lớp. Sĩ số: 44 học sinh.\n\nI. BÁO CÁO TÌNH HÌNH THI ĐUA TRONG TUẦN/THÁNG:\n1. Nề nếp tác phong (Theo tiêu chí Đoàn trường):\n- Chấp hành trang phục, sơ vin, đeo phù hiệu đúng quy định.\n- Chuyên cần: Tỷ lệ chuyên cần đạt 100%; điểm danh đầu giờ nghiêm túc.\n- Giữ gìn trật tự và vệ sinh môi trường lớp học sạch sẽ.\n2. Báo cáo điểm thi đua 4 Tổ:\n- Điểm thi đua được tự động tính lũy tiến theo thang điểm 100 của Đoàn trường.\n- Biểu dương các cá nhân đạt điểm 9, 10 và các gương việc tốt trong tuần.\n\nII. Ý KIẾN TỔ TRƯỞNG & HỌC SINH VI PHẠM:\n- Đại diện 4 tổ báo cáo nề nếp thực tế và đề xuất giải pháp thi đua.\n- Các học sinh có vi phạm phát biểu giải trình, cam kết uốn nắn, không để tái phạm tăng cấp số cộng.\n\nIII. KẾT LUẬN & ĐỊNH HƯỚNG CỦA GVCN (THẦY TRẦN ĐÌNH THANH):\n- Tuyên dương các tổ xuất sắc dẫn đầu tuần/tháng.\n- Nhắc nhở nghiêm túc việc thực hiện ATGT cổng trường và quy định sử dụng ĐTDĐ.\n- Nhiệm vụ tuần tới: Tiếp tục thi đua dạy tốt - học tốt, chuẩn bị chu đáo cho các đợt khảo sát chất lượng.`;
+      document.getElementById('shResult').value = text;
+    }
+
+    function generateSMS() {
+      const hs = document.getElementById('smsHS').value;
+      const type = document.getElementById('smsType').value;
+      let text = "";
+      if (type === "nhac_nho") {
+        text = `Kính gửi Phụ huynh em ${hs},\nThầy Thanh - GVCN lớp 11C7 xin phép trao đổi nhanh với gia đình. Trong tuần vừa qua, theo bảng chấm nề nếp thi đua của Đoàn trường, em ${hs} có ghi nhận lỗi về tác phong/chuẩn bị bài dẫn đến việc bị trừ điểm thi đua của tổ. Ở lớp em rất ngoan và có năng lực tiếp thu tốt, thầy mong gia đình đồng hành phối hợp nhắc nhở thêm để em khắc phục ngay, tránh để bị trừ điểm cấp số cộng theo quy chế của trường và giữ vững kết quả rèn luyện tốt nhất. Trân trọng cảm ơn sự đồng hành của gia đình!`;
+      } else if (type === "khen_ngoi") {
+        text = `Kính gửi Phụ huynh em ${hs},\nThầy Thanh - GVCN 11C7 xin gửi lời chúc mừng đến em ${hs} và gia đình! Trong đợt tổng hợp thi đua vừa qua, em đã chấp hành rất xuất sắc nội quy của trường lớp, đạt điểm thi đua tối đa (Xếp loại Xuất sắc) và đóng góp tích cực cho thành tích của tổ. Chúc em tiếp tục phát huy tinh thần tuyệt vời này!`;
+      } else {
+        text = `Kính gửi Phụ huynh em ${hs},\nThầy Thanh - GVCN lớp 11C7 kính mời quý Phụ huynh bớt chút thời gian trao đổi ngắn qua điện thoại vào tối nay để thầy trò cùng bàn về kế hoạch rèn luyện và định hướng học tập của em trong thời gian tới. Trân trọng!`;
+      }
+      document.getElementById('smsResult').value = text;
+    }
+
+    function filterHS() {
+      const q = document.getElementById('searchHS').value.toLowerCase();
+      document.querySelectorAll('#hsBody tr').forEach(row => {
+        row.style.display = row.innerText.toLowerCase().includes(q) ? '' : 'none';
+      });
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>
